@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="?colorPrimary"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+
+    <TextView
+        android:id="@+id/representative_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Your Senator"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:layout_marginTop="32dp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/congressman_image"
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="8dp"
+        android:scaleType="centerCrop"
+        android:layout_gravity="center"
+        app:srcCompat="@drawable/johncornyn" />
+
+    <TextView
+        android:id="@+id/congressman_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="John Cornyn"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:layout_gravity="center" />
+
+    <TextView
+        android:id="@+id/party_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:text="Republican"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_gravity="center" />
+
+    <TextView
+        android:id="@+id/address_line_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:text="517 Hart Senate Office Building"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_gravity="center" />
+
+    <TextView
+        android:id="@+id/address_line_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:text="Washington, DC, 20510"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_gravity="center" />
+
+    <TextView
+        android:id="@+id/website"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:text="https://www.cornyn.senate.gov/"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_gravity="center" />
+
+    <Button
+        android:id="@+id/phone"
+        android:elevation="16dp"
+        android:backgroundTint="@color/purple_700"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:text="(202) 224-2934"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_gravity="center" />
+
+
+
+
+</LinearLayout>

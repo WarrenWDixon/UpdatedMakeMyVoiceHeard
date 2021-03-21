@@ -15,15 +15,69 @@
  */
 package com.example.android.makemyvoiceheard;
 
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
+
+import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        String userAddress = "temp";
+        new CivicQueryTask().execute(userAddress);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+    }
+
+    public void goToDetail(View view) {
+        Intent intent = new Intent(this, DetailActivity.class);
+        startActivity(intent);
+    }
+    public class CivicQueryTask extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            //mLoadingIndicator.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            String address = params[0];
+            String civicResults = null;
+            Log.d("WWD", "in doInBackground");
+            try {
+                civicResults = NetworkUtils.getResponseFromHttpUrl(address);
+                Log.d("WWD", "civicResults):" + civicResults);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return civicResults;
+        }
+
+
+        @Override
+        protected void onPostExecute(String civicSearchResults) {
+            Log.d("WWD", "in onPostExecute");
+            if (NetworkUtils.getNetworkConnected()) {
+                if (civicSearchResults != null && !civicSearchResults.equals("")) {
+                    Log.d("WWD", "got civics results" + civicSearchResults);
+                    //JsonUtil.parseCivcsJson(civicSearchResults);
+                }
+            } else {
+                //showErrorMessage();
+            }
+        }
+
     }
 }
