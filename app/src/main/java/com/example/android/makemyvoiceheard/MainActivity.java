@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
             String civicResults = null;
             Log.d("WWD", "in doInBackground");
             try {
+                Log.d("WWD", "call network utils");
                 civicResults = NetworkUtils.getResponseFromHttpUrl(address);
                 Log.d("WWD", "civicResults):" + civicResults);
             } catch (IOException e) {
