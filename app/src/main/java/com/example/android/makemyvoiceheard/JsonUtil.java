@@ -12,9 +12,16 @@ class JsonUtil {
         JSONObject jOBJ = null;
         JSONArray jsonOffices = null;
         JSONArray jsonOfficials = null;
-        JSONObject senator1 = null;
-        JSONObject senator2 = null;
-        JSONObject congressman = null;
+        JSONObject official1 = null;
+        JSONObject official2 = null;
+        JSONObject official3 = null;
+        String official1Name = null;
+        JSONArray official1AddressArray = null;
+        JSONObject official1Address = null;
+        String official1AddressLine1 = "";
+        String official1AddressCity = "";
+        String official1AddressState = "";
+        String official1AddressZip = "";
 
         try {
             jOBJ = new JSONObject(json);
@@ -54,28 +61,91 @@ class JsonUtil {
         }
         Log.d("WWD", "the officals arrays size is " + jsonOfficials.length());
         try {
-            senator1 = jsonOfficials.getJSONObject(0);
-            Log.d("WWD", "senator1 is " + senator1);
+            official1 = jsonOfficials.getJSONObject(0);
+            Log.d("WWD", "official1 is " + official1);
         } catch (JSONException e) {
-            Log.d("WWD", "error parsing senator1");
+            Log.d("WWD", "error parsing official1");
             e.printStackTrace();
         }
 
         try {
-            senator2 = jsonOfficials.getJSONObject(1);
-            Log.d("WWD", "senator2 is " + senator2);
+            official2 = jsonOfficials.getJSONObject(1);
+            Log.d("WWD", "official2 is " + official2);
         } catch (JSONException e) {
-            Log.d("WWD", "error parsing senator2");
+            Log.d("WWD", "error parsing official2");
             e.printStackTrace();
         }
 
         try {
-            congressman = jsonOfficials.getJSONObject(2);
-            Log.d("WWD", "congressman is " + congressman);
+            official3 = jsonOfficials.getJSONObject(2);
+            Log.d("WWD", "official2 is " + official3);
         } catch (JSONException e) {
-            Log.d("WWD", "error parsing congressman");
+            Log.d("WWD", "error parsing official3");
             e.printStackTrace();
         }
+
+        // parse first officials data
+        try {
+            official1Name = official1.getString("name");
+            Log.d("WWD", "official 1 name is " + official1Name);
+        } catch (JSONException e) {
+            Log.d("WWD", "error official1Name");
+            e.printStackTrace();
+        }
+
+        try {
+            official1AddressArray = official1.getJSONArray("address");
+            Log.d("WWD", "official1AddressArray is " + official1AddressArray);
+        } catch (JSONException e) {
+            Log.d("WWD", "error parsing official1AddressArray");
+            e.printStackTrace();
+        }
+
+        try {
+            official1Address = official1AddressArray.getJSONObject(0);
+            Log.d("WWD", "official1Address is " + official1Address);
+        } catch (JSONException e) {
+            Log.d("WWD", "error parsing official1Address");
+            e.printStackTrace();
+        }
+
+        try {
+            official1AddressLine1 = official1Address.getString("line1");
+            Log.d("WWD", "official1AddressLine1 is " + official1AddressLine1);
+        } catch (JSONException e) {
+            Log.d("WWD", "error parsing official1AddressLine1");
+            e.printStackTrace();
+        }
+
+        try {
+            official1AddressCity = official1Address.getString("city");
+            Log.d("WWD", "official1AddressCity is " + official1AddressCity);
+        } catch (JSONException e) {
+            Log.d("WWD", "error parsing official1AddressCity");
+            e.printStackTrace();
+        }
+
+        try {
+            official1AddressState = official1Address.getString("state");
+            Log.d("WWD", "official1AddressState is " + official1AddressState);
+        } catch (JSONException e) {
+            Log.d("WWD", "error parsing official1AddressState");
+            e.printStackTrace();
+        }
+
+        try {
+            official1AddressZip = official1Address.getString("zip");
+            Log.d("WWD", "official1AddressZip is " + official1AddressZip);
+        } catch (JSONException e) {
+            Log.d("WWD", "error parsing official1AddressZip");
+            e.printStackTrace();
+        }
+
+
+
+
+
+
 
     }
 }
