@@ -73,9 +73,10 @@ public class MainActivity extends AppCompatActivity {
             if (NetworkUtils.getNetworkConnected()) {
                 if (civicSearchResults != null && !civicSearchResults.equals("")) {
                     Log.d("WWD", "got civics results" + civicSearchResults);
-                    //JsonUtil.parseCivcsJson(civicSearchResults);
+                    JsonUtil.parseCivicsJson(civicSearchResults);
                 }
             } else {
+                Log.d("WWD", "network error");
                 //showErrorMessage();
             }
         }
