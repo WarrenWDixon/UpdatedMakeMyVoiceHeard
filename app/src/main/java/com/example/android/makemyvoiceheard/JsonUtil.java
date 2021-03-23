@@ -3,8 +3,12 @@ package com.example.android.makemyvoiceheard;
 import android.util.Log;
 
 import org.json.JSONArray;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 class JsonUtil {
     public static void parseCivicsJson(String json) {
@@ -22,6 +26,13 @@ class JsonUtil {
         String official1AddressCity = "";
         String official1AddressState = "";
         String official1AddressZip = "";
+        List<JSONObject> officialJSONArray = new ArrayList<>();
+        List<JSONArray> addressJSONArray = new ArrayList<>();
+        List<String> officialNameArray = new ArrayList<>();
+        List<String> officialLine1Array = new ArrayList<>();
+        List<String> officialCityArray = new ArrayList<>();
+        List<String> officialStateArray = new ArrayList<>();
+        List<String> officialZipCodeArray = new ArrayList<>();
 
         try {
             jOBJ = new JSONObject(json);
@@ -60,7 +71,69 @@ class JsonUtil {
             e.printStackTrace();
         }
         Log.d("WWD", "the officals arrays size is " + jsonOfficials.length());
-        try {
+
+        int numOfficials = jsonOfficials.length();
+        if (numOfficials > 0) {
+            for (int i = 0; i < numOfficials; i++) {
+                try {
+                    officialJSONArray.add(jsonOfficials.getJSONObject(i));
+                    Log.d("WWD", "official1 is " + officialJSONArray.get(i));
+                } catch (JSONException e) {
+                    Log.d("WWD", "error parsing official1");
+                    e.printStackTrace();
+                }
+
+                try {
+                    officialNameArray.add(officialJSONArray.get(i).getString("name"));
+                    Log.d("WWD", "name " + i + " = " + officialNameArray.get(i));
+                } catch (JSONException e) {
+                    Log.d("WWD", "error parsing name");
+                    e.printStackTrace();
+                }
+
+                try {
+                    addressJSONArray.add(officialJSONArray.get(i).getJSONArray("address"));
+                    Log.d("WWD", "official1AddressArray is " + official1AddressArray);
+                } catch (JSONException e) {
+                    Log.d("WWD", "error parsing official1AddressArray");
+                    e.printStackTrace();
+                }
+
+                try {
+                    officialLine1Array.add(addressJSONArray.get(i).getJSONObject(0).getString("line1"));
+                    Log.d("WWD", "line1 " + i + " = " + officialLine1Array.get(i));
+                } catch (JSONException e) {
+                    Log.d("WWD", "error parsing line " + i);
+                    e.printStackTrace();
+                }
+
+                try {
+                    officialCityArray.add(addressJSONArray.get(i).getJSONObject(0).getString("city"));
+                    Log.d("WWD", "City " + i + " = " + officialCityArray.get(i));
+                } catch (JSONException e) {
+                    Log.d("WWD", "error parsing city" + i );
+                    e.printStackTrace();
+                }
+
+                try {
+                    officialStateArray.add(addressJSONArray.get(i).getJSONObject(0).getString("state"));
+                    Log.d("WWD", "State " + i + " = " + officialStateArray.get(i));
+                } catch (JSONException e) {
+                    Log.d("WWD", "error parsing state " + i);
+                    e.printStackTrace();
+                }
+
+                try {
+                    officialZipCodeArray.add(addressJSONArray.get(i).getJSONObject(0).getString("zip"));
+                    Log.d("WWD", "zip " + i + " = " + officialZipCodeArray.get(i));
+                } catch (JSONException e) {
+                    Log.d("WWD", "error parsing zip " + i);
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        /* try {
             official1 = jsonOfficials.getJSONObject(0);
             Log.d("WWD", "official1 is " + official1);
         } catch (JSONException e) {
@@ -139,7 +212,7 @@ class JsonUtil {
         } catch (JSONException e) {
             Log.d("WWD", "error parsing official1AddressZip");
             e.printStackTrace();
-        }
+        } */
 
 
 
