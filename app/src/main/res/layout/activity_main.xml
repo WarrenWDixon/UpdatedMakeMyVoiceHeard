@@ -1,19 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="?colorPrimary"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
 
     <TextView
-        android:id="@+id/tv_quantity"
+        android:id="@+id/congressman_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Quantity"
+        android:layout_gravity="center"
+        android:text="Your Congressional Representive"
+        android:textColor="@color/white"
         android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</android.support.constraint.ConstraintLayout>
+        android:layout_marginTop="32dp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/congressman_image"
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="8dp"
+        android:scaleType="centerCrop"
+        android:layout_gravity="center"
+        app:srcCompat="@drawable/vantaylor" />
+
+    <TextView
+        android:id="@+id/congressman_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Van Taylor"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:layout_gravity="center" />
+
+    <TextView
+        android:id="@+id/your_senators_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:text="Your Senators"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_gravity="center" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/senator_1_label"
+            android:layout_width="100dp"
+            android:layout_height="150dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginRight="100dp"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/johncornyn" />
+
+        <ImageView
+            android:id="@+id/senator_2_label"
+            android:layout_width="100dp"
+            android:layout_height="150dp"
+            android:layout_marginLeft="100dp"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/tedcruz" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/senator_1_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="50dp"
+            android:text="John Cornyn"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+        <TextView
+            android:id="@+id/senator_2_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="110dp"
+            android:text="Ted Cruz"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+    </LinearLayout>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="click me"
+        android:onClick="goToDetail"/>
+</LinearLayout>

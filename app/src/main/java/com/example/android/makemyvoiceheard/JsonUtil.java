@@ -19,6 +19,7 @@ class JsonUtil {
         JSONObject official1 = null;
         JSONObject official2 = null;
         JSONObject official3 = null;
+        JSONObject jsonOfficeObj = null;
         String official1Name = null;
         JSONArray official1AddressArray = null;
         JSONObject official1Address = null;
@@ -28,11 +29,14 @@ class JsonUtil {
         String official1AddressZip = "";
         List<JSONObject> officialJSONArray = new ArrayList<>();
         List<JSONArray> addressJSONArray = new ArrayList<>();
+        List<JSONObject> officesJSONArray = new ArrayList<>();
         List<String> officialNameArray = new ArrayList<>();
         List<String> officialLine1Array = new ArrayList<>();
         List<String> officialCityArray = new ArrayList<>();
         List<String> officialStateArray = new ArrayList<>();
         List<String> officialZipCodeArray = new ArrayList<>();
+        List<String> officeNameArray = new ArrayList<>();
+        List<JSONArray> officialIndexJSONArray = new ArrayList<>();
 
         try {
             jOBJ = new JSONObject(json);
@@ -51,17 +55,52 @@ class JsonUtil {
             e.printStackTrace();
         }
 
+        // ------------------------------------------------------------------
         //parse offices
+        // ------------------------------------------------------------------
         try {
             jsonOffices = new JSONArray();
             jsonOffices  = jOBJ.getJSONArray("offices");
-            Log.d("WWD", "offices is " + jsonOffices);
+            Log.d("WWD", "\n\n offices is " + jsonOffices);
         } catch (JSONException e) {
             Log.d("WWD", "error parsing offices");
             e.printStackTrace();
         }
 
+        int numOffices = jsonOffices.length();
+        Log.d("WWD", "numoffices is " + numOffices);
+        if (numOffices > 0) {
+            for (int i = 0; i < numOffices; i++) {
+                try {
+                    officesJSONArray.add(jsonOffices.getJSONObject(i));
+                    Log.d("WWD", "\n\noffice is " + officesJSONArray.get(i));
+                } catch (JSONException e) {
+                    Log.d("WWD", "error parsing office");
+                    e.printStackTrace();
+                }
+
+                try {
+                    officialNameArray.add(officesJSONArray.get(i).getString("name"));
+                    Log.d("WWD", "\n\n office name " + i + " = " + officialNameArray.get(i));
+                } catch (JSONException e) {
+                    Log.d("WWD", "error parsing name");
+                    e.printStackTrace();
+                }
+
+                try {
+                    officialIndexJSONArray.add(officesJSONArray.get(i).getJSONArray("officialIndices"));
+                    Log.d("WWD", "\n\n officialIndexJSONArray is " + officialIndexJSONArray.get(i));
+                } catch (JSONException e) {
+                    Log.d("WWD", "error parsing officialIndexJSONArray");
+                    e.printStackTrace();
+                }
+
+            }
+        }
+
+        // ----------------------------------------------------------------
         //parse officials
+        // ----------------------------------------------------------------
         try {
             jsonOfficials = new JSONArray();
             jsonOfficials  = jOBJ.getJSONArray("officials");
