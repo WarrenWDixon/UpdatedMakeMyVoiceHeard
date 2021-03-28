@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
             try {
                 Log.d("WWD", "call network utils");
                 civicResults = NetworkUtils.getResponseFromHttpUrl(address);
-                Log.d("WWD", "civicResults):" + civicResults);
+                //Log.d("WWD", "civicResults):" + civicResults);
             } catch (IOException e) {
                 e.printStackTrace();
             }
