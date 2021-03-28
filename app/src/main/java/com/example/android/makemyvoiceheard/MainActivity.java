@@ -21,13 +21,21 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
+    private TextView senator1NameTV;
+    private TextView senator2NameTV;
+    private TextView representativeNameTV;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        String senator1Name;
+        String senator2Name;
+        String representativeName;
         String userAddress = "temp";
         new CivicQueryTask().execute(userAddress);
         try {
@@ -37,6 +45,30 @@ public class MainActivity extends AppCompatActivity {
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        /* senator1NameTV = (TextView) findViewById(R.id.senator_1_name);
+        senator1Name = JsonUtil.getSenator1Name();
+        if (senator1Name.length() > 0)
+            Log.d("WWD", "senator 1 name is " + senator1Name);
+        else
+            Log.d("WWD", "senator 1 name not defined");
+        //senator1Name.setText(JsonUtil.getSenator1Name());
+
+        senator2NameTV = (TextView) findViewById(R.id.senator_2_name);
+        senator2Name = JsonUtil.getSenator2Name();
+        if (senator2Name.length() > 0)
+            Log.d("WWD", "senator 2 name is " + senator2Name);
+        else
+            Log.d("WWD", "senator 2 name not defined");
+        //senator2Name.setText(JsonUtil.getSenator2Name());
+
+        representativeNameTV = (TextView) findViewById(R.id.representative_name);
+        representativeName = JsonUtil.getRepresentativeName();
+        if (representativeName.length() > 0)
+            Log.d("WWD", "representative name is " + representativeName);
+        else
+            Log.d("WWD", "representative name not defined");
+        representativeName.setText(JsonUtil.getRepresenativeName()); */
     }
 
     public void goToDetail(View view) {
@@ -72,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d("WWD", "in onPostExecute");
             if (NetworkUtils.getNetworkConnected()) {
                 if (civicSearchResults != null && !civicSearchResults.equals("")) {
-                    Log.d("WWD", "got civics results" + civicSearchResults);
+                    //Log.d("WWD", "got civics results" + civicSearchResults);
                     JsonUtil.parseCivicsJson(civicSearchResults);
                 }
             } else {

@@ -30,11 +30,10 @@
         app:srcCompat="@drawable/vantaylor" />
 
     <TextView
-        android:id="@+id/congressman_name"
+        android:id="@+id/representative_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Van Taylor"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:layout_gravity="center" />
@@ -82,7 +81,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginLeft="50dp"
-            android:text="John Cornyn"
             android:textColor="@color/white"
             android:textSize="18sp" />
         <TextView
@@ -91,7 +89,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginLeft="110dp"
-            android:text="Ted Cruz"
             android:textColor="@color/white"
             android:textSize="18sp" />
     </LinearLayout>

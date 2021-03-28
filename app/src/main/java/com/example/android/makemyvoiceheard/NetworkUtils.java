@@ -91,7 +91,7 @@ public class NetworkUtils {
 
             while ((line = reader.readLine()) != null) {
                 sb.append(line + "\n");
-                Log.d("WWD", "read " + line);
+                //Log.d("WWD", "read " + line);
             }
             return sb.toString();
         } finally {
