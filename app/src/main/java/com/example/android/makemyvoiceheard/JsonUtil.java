@@ -299,15 +299,15 @@ class JsonUtil {
 
     public static String getSenator1Name() {
         Log.d("WWD", "in getSenator1Name");
-        return "testStringName";
-        /* if ((senator1Index < 0) || (senator1Index > 2))
+        //return "testStringName";
+        if ((senator1Index < 0) || (senator1Index > 2))
             return "";
         if (officialNameArray.get(senator1Index).length() > 0) {
             Log.d("WWD", "senator 1 name is " + officialNameArray.get(senator1Index));
             return officialNameArray.get(senator1Index);
         }
         Log.d("WWD", "senator 1 has no name return empty string");
-        return ""; */
+        return "";
     }
 
     public static String getSenator2PhotoURL() {
