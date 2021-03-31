@@ -21,7 +21,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 
@@ -30,6 +33,10 @@ public class MainActivity extends AppCompatActivity {
     private TextView senator1NameTV;
     private TextView senator2NameTV;
     private TextView representativeNameTV;
+    private ImageView senator1Image;
+    private ImageView senator2Image;
+    private ImageView representativeImage;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,8 +88,11 @@ public class MainActivity extends AppCompatActivity {
             Log.d("WWD", "in onPostExecute");
             if (NetworkUtils.getNetworkConnected()) {
                 if (civicSearchResults != null && !civicSearchResults.equals("")) {
-                    //Log.d("WWD", "got civics results" + civicSearchResults);
+                    // ---------------------------------------------------------------------
+                    // first set the names to the text views
+                    // ---------------------------------------------------------------------
                     JsonUtil.parseCivicsJson(civicSearchResults);
+
                     senator1NameTV = (TextView) findViewById(R.id.senator_1_name);
                     senator1Name = JsonUtil.getSenator1Name();
                     Log.d("WWD", "senator1Name is " + senator1Name);
@@ -107,6 +117,37 @@ public class MainActivity extends AppCompatActivity {
                     else
                         Log.d("WWD", "representative name not defined");
                     representativeNameTV.setText(JsonUtil.getRepresentativeName());
+
+                    // ---------------------------------------------------------------------
+                    // next set the images using picasso
+                    // ---------------------------------------------------------------------
+                    senator1Image = (ImageView) findViewById(R.id.senator_1_label);
+                    String senator1Url = JsonUtil.getSenator1PhotoURL();
+                    Log.d("WWD", "senator1Url is " + senator1Url);
+                    if (senator1Url.length() == 0) {
+                        senator1Image.setImageResource(R.drawable.nophoto);
+                    } else {
+                        Picasso.get().load(senator1Url).into(senator1Image);
+                    }
+
+                    senator2Image = (ImageView) findViewById(R.id.senator_2_label);
+                    String senator2Url = JsonUtil.getSenator2PhotoURL();
+                    Log.d("WWD", "senator2Url is " + senator2Url);
+                    if (senator2Url.length() == 0) {
+                        senator2Image.setImageResource(R.drawable.nophoto);
+                    } else {
+                        Picasso.get().load(senator2Url).into(senator2Image);
+                    }
+
+                    representativeImage = (ImageView) findViewById(R.id.representative_image);
+                    /* String representativeUrl = JsonUtil.getRepresentativePhotoURL();
+                    Log.d("WWD", "representatvieUrl is " + representativeUrl);
+                     if (representativeUrl.length() == 0) {
+                        representativeImage.setImageResource(R.drawable.nophoto);
+                    } else {
+                        Picasso.get().load(representativeUrl).into(representativeImage);
+                    } */
+
                 }
             } else {
                 Log.d("WWD", "network error");

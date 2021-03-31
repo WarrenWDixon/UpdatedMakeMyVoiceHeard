@@ -21,13 +21,12 @@
         android:textStyle="bold" />
 
     <ImageView
-        android:id="@+id/congressman_image"
+        android:id="@+id/representative_image"
         android:layout_width="100dp"
         android:layout_height="150dp"
         android:layout_marginTop="8dp"
         android:scaleType="centerCrop"
-        android:layout_gravity="center"
-        app:srcCompat="@drawable/vantaylor" />
+        android:layout_gravity="center" />
 
     <TextView
         android:id="@+id/representative_name"
@@ -59,16 +58,14 @@
             android:layout_height="150dp"
             android:layout_marginStart="50dp"
             android:layout_marginRight="100dp"
-            android:scaleType="centerCrop"
-            app:srcCompat="@drawable/johncornyn" />
+            android:scaleType="centerCrop" />
 
         <ImageView
             android:id="@+id/senator_2_label"
             android:layout_width="100dp"
             android:layout_height="150dp"
             android:layout_marginLeft="100dp"
-            android:scaleType="centerCrop"
-            app:srcCompat="@drawable/tedcruz" />
+            android:scaleType="centerCrop" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"

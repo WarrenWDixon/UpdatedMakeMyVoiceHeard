@@ -45,6 +45,7 @@ class JsonUtil {
         officialStateArray = new ArrayList<>();
         officialZipCodeArray = new ArrayList<>();
         officeNameArray = new ArrayList<>();
+        officialURLArray = new ArrayList<>();
         officialIndexJSONArray = new ArrayList<>();
 
         if (!parseJSONObject(json))
@@ -287,6 +288,7 @@ class JsonUtil {
     }
 
     public static String getSenator1PhotoURL() {
+        Log.d("WWD", "In getSenator1Url, senator1Index is " + senator1Index);
         if ((senator1Index < 0) || (senator1Index > 2))
             return "";
         if (officialURLArray.get(senator1Index).length() > 0) {
