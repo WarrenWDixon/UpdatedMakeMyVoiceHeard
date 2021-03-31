@@ -140,13 +140,13 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     representativeImage = (ImageView) findViewById(R.id.representative_image);
-                    /* String representativeUrl = JsonUtil.getRepresentativePhotoURL();
+                    String representativeUrl = JsonUtil.getRepresentativePhotoURL();
                     Log.d("WWD", "representatvieUrl is " + representativeUrl);
                      if (representativeUrl.length() == 0) {
                         representativeImage.setImageResource(R.drawable.nophoto);
                     } else {
                         Picasso.get().load(representativeUrl).into(representativeImage);
-                    } */
+                    } 
 
                 }
             } else {

@@ -187,6 +187,7 @@ class JsonUtil {
                     officialURLArray.add(officialJSONArray.get(i).getString("photoUrl"));
                     Log.d("WWD", "url " + i + " = " + officialURLArray.get(i));
                 } catch (Exception e) {
+                    officialURLArray.add("");
                     Log.d("WWD", "error parsing url " + i);
                     //e.printStackTrace();
                     //return false;
