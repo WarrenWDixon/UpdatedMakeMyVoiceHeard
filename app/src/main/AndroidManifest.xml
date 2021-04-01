@@ -32,6 +32,13 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name=".DetailActivity"
+            android:label = "Detail Activity"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
         <meta-data
             android:name="com.example.android.makemyvoiceheard.API_KEY"
             android:value="AIzaSyD_7MEtxj3fSEG6eADD5W2tReHTfr6buY4"/>

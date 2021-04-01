@@ -14,6 +14,10 @@ public class DetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("WWD", "in Detail Activity onCreate");
         setContentView(R.layout.activity_detail);
+        Intent intent = getIntent();
+        Integer index = intent.getIntExtra(MainActivity.IMAGE_SELECTION, 0);
+        Log.d("WWD", "the selection index was " + index); 
     }
 }

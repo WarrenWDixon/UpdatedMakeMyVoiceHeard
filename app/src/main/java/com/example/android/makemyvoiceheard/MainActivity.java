@@ -37,6 +37,11 @@ public class MainActivity extends AppCompatActivity {
     private ImageView senator2Image;
     private ImageView representativeImage;
 
+    private static final Integer SENATOR_ONE = 1;
+    private static final Integer SENATOR_TWO = 2;
+    private static final Integer REPRESENTATIVE = 3;
+    public static final String IMAGE_SELECTION = "SELECTION";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,9 +58,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void goToDetail(View view) {
+        Log.d("WWD", "in goToDetail");
         Intent intent = new Intent(this, DetailActivity.class);
+        Log.d("WWD", "in goToDetail call startActivity");
         startActivity(intent);
     }
+
+    public void onClickSenator1(View view) {
+        Intent intent = new Intent(this, DetailActivity.class);
+        intent.putExtra(IMAGE_SELECTION, SENATOR_ONE);
+        startActivity(intent);
+    }
+
+    public void onClickSenator2(View view) {
+        Intent intent = new Intent(this, DetailActivity.class);
+        intent.putExtra(IMAGE_SELECTION, SENATOR_TWO);
+        startActivity(intent);
+    }
+
+    public void onClickRepresentative(View view) {
+        Intent intent = new Intent(this, DetailActivity.class);
+        intent.putExtra(IMAGE_SELECTION, REPRESENTATIVE);
+        startActivity(intent);
+    }
+
     public class CivicQueryTask extends AsyncTask<String, Void, String> {
 
         @Override
