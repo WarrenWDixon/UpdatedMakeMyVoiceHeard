@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
                         representativeImage.setImageResource(R.drawable.nophoto);
                     } else {
                         Picasso.get().load(representativeUrl).into(representativeImage);
-                    } 
+                    }
 
                 }
             } else {
