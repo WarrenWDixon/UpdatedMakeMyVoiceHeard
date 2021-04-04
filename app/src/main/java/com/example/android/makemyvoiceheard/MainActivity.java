@@ -15,14 +15,18 @@
  */
 package com.example.android.makemyvoiceheard;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -42,11 +46,45 @@ public class MainActivity extends AppCompatActivity {
     public static final Integer REPRESENTATIVE = 3;
     public static final String IMAGE_SELECTION = "SELECTION";
 
+    // GPSTracker class
+    GPSTracker gps;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        String mPermission = Manifest.permission.ACCESS_FINE_LOCATION;
+        final int REQUEST_CODE_PERMISSION = 2;
 
         String userAddress = "temp";
+        try {
+            if (ContextCompat.checkSelfPermission(this, mPermission)
+                    != PackageManager.PERMISSION_GRANTED) {
+                Log.d("WWD", "requesting permission");
+                requestPermissions(new String[]{mPermission}, REQUEST_CODE_PERMISSION);
+
+                // If any permission above not allowed by user, this condition will execute every time, else your else part will work
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        gps = new GPSTracker(MainActivity.this);
+
+        // check if GPS enabled
+        if(gps.canGetLocation()){
+            Log.d("WWD", "canGetLocation returned true");
+            double latitude = gps.getLatitude();
+            double longitude = gps.getLongitude();
+            Log.d("WWD", " ---------- latitude is " + latitude);
+            Log.d("WWD", " ---------- longitude is " + longitude);
+            // \n is for new line
+            Toast.makeText(getApplicationContext(), "Your Location is - \nLat: "
+                    + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
+        }else{
+            // can't get location
+            // GPS or Network is not enabled
+            // Ask user to enable GPS/network in settings
+            gps.showSettingsAlert();
+        }
         new CivicQueryTask().execute(userAddress);
         try {
             Thread.sleep(3000);
