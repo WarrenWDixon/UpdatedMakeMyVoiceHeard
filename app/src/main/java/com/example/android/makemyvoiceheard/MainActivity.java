@@ -18,6 +18,8 @@ package com.example.android.makemyvoiceheard;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -31,6 +33,10 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.util.List;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -79,6 +85,24 @@ public class MainActivity extends AppCompatActivity {
             // \n is for new line
             Toast.makeText(getApplicationContext(), "Your Location is - \nLat: "
                     + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
+            Geocoder geocoder= new Geocoder(getApplicationContext(), Locale.getDefault());
+            try {
+                List<Address> listAddress = geocoder.getFromLocation(latitude, longitude, 1);
+                if (listAddress != null && listAddress.size() > 0) {
+                    String address = "";
+                    address += listAddress.get(0).getAddressLine(0);
+                    Log.d("WWD", " -------------  address line is " + address);
+                    String encodeAddress = URLEncoder.encode(address, "UTF-8");
+                    Log.d("WWD", "-------------- the the encoded address is " + encodeAddress);
+                    String encodedAddress = encodeAddress.replace("+", "%20");
+                    Log.d("WWD", " -------------- the encoded address afer replacment is " + encodedAddress);
+
+                   // URL url = new URL(address);
+                    //Log.d("WWD", "-------------- first url is " + url.toString());
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }else{
             // can't get location
             // GPS or Network is not enabled
@@ -96,9 +120,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void goToDetail(View view) {
-        Log.d("WWD", "in goToDetail");
+      //  Log.d("WWD", "in goToDetail");
         Intent intent = new Intent(this, DetailActivity.class);
-        Log.d("WWD", "in goToDetail call startActivity");
+     //   Log.d("WWD", "in goToDetail call startActivity");
         startActivity(intent);
     }
 
@@ -132,9 +156,9 @@ public class MainActivity extends AppCompatActivity {
         protected String doInBackground(String... params) {
             String address = params[0];
             String civicResults = null;
-            Log.d("WWD", "in doInBackground");
+          //  Log.d("WWD", "in doInBackground");
             try {
-                Log.d("WWD", "call network utils");
+            //    Log.d("WWD", "call network utils");
                 civicResults = NetworkUtils.getResponseFromHttpUrl(address);
                 //Log.d("WWD", "civicResults):" + civicResults);
             } catch (IOException e) {
@@ -149,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
             String senator1Name;
             String senator2Name;
             String representativeName;
-            Log.d("WWD", "in onPostExecute");
+          // Log.d("WWD", "in onPostExecute");
             if (NetworkUtils.getNetworkConnected()) {
                 if (civicSearchResults != null && !civicSearchResults.equals("")) {
                     // ---------------------------------------------------------------------
@@ -159,27 +183,27 @@ public class MainActivity extends AppCompatActivity {
 
                     senator1NameTV = (TextView) findViewById(R.id.senator_1_name);
                     senator1Name = JsonUtil.getSenator1Name();
-                    Log.d("WWD", "senator1Name is " + senator1Name);
-                    if (senator1Name.length() > 0)
-                        Log.d("WWD", "senator 1 name is " + senator1Name);
-                    else
-                        Log.d("WWD", "senator 1 name not defined");
+                 //   Log.d("WWD", "senator1Name is " + senator1Name);
+                 //   if (senator1Name.length() > 0)
+                //        Log.d("WWD", "senator 1 name is " + senator1Name);
+                //    else
+                //        Log.d("WWD", "senator 1 name not defined");
                     senator1NameTV.setText(JsonUtil.getSenator1Name());
 
                     senator2NameTV = (TextView) findViewById(R.id.senator_2_name);
                     senator2Name = JsonUtil.getSenator2Name();
-                    if (senator2Name.length() > 0)
-                        Log.d("WWD", "senator 2 name is " + senator2Name);
-                    else
-                        Log.d("WWD", "senator 2 name not defined");
+                 //   if (senator2Name.length() > 0)
+                 //       Log.d("WWD", "senator 2 name is " + senator2Name);
+                 //   else
+                 //       Log.d("WWD", "senator 2 name not defined");
                     senator2NameTV.setText(JsonUtil.getSenator2Name());
 
                     representativeNameTV = (TextView) findViewById(R.id.representative_name);
                     representativeName = JsonUtil.getRepresentativeName();
-                    if (representativeName.length() > 0)
-                        Log.d("WWD", "representative name is " + representativeName);
-                    else
-                        Log.d("WWD", "representative name not defined");
+                //    if (representativeName.length() > 0)
+                 //       Log.d("WWD", "representative name is " + representativeName);
+                //    else
+               //        Log.d("WWD", "representative name not defined");
                     representativeNameTV.setText(JsonUtil.getRepresentativeName());
 
                     // ---------------------------------------------------------------------
@@ -187,7 +211,7 @@ public class MainActivity extends AppCompatActivity {
                     // ---------------------------------------------------------------------
                     senator1Image = (ImageView) findViewById(R.id.senator_1_label);
                     String senator1Url = JsonUtil.getSenator1PhotoURL();
-                    Log.d("WWD", "senator1Url is " + senator1Url);
+               //     Log.d("WWD", "senator1Url is " + senator1Url);
                     if (senator1Url.length() == 0) {
                         senator1Image.setImageResource(R.drawable.nophoto);
                     } else {
@@ -196,7 +220,7 @@ public class MainActivity extends AppCompatActivity {
 
                     senator2Image = (ImageView) findViewById(R.id.senator_2_label);
                     String senator2Url = JsonUtil.getSenator2PhotoURL();
-                    Log.d("WWD", "senator2Url is " + senator2Url);
+               //     Log.d("WWD", "senator2Url is " + senator2Url);
                     if (senator2Url.length() == 0) {
                         senator2Image.setImageResource(R.drawable.nophoto);
                     } else {
@@ -205,7 +229,7 @@ public class MainActivity extends AppCompatActivity {
 
                     representativeImage = (ImageView) findViewById(R.id.representative_image);
                     String representativeUrl = JsonUtil.getRepresentativePhotoURL();
-                    Log.d("WWD", "representatvieUrl is " + representativeUrl);
+                 //   Log.d("WWD", "representatvieUrl is " + representativeUrl);
                      if (representativeUrl.length() == 0) {
                         representativeImage.setImageResource(R.drawable.nophoto);
                     } else {

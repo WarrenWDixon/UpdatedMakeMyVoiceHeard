@@ -56,23 +56,23 @@ class JsonUtil {
 
         if (!parseJSONObject(json))
             return false;
-        Log.d("WWD", " parseJSONObject worked");
+        //Log.d("WWD", " parseJSONObject worked");
 
         if (!parseNormalizedInput())
             return false;
-        Log.d("WWD", " parseNormalizedInput worked");
+        //Log.d("WWD", " parseNormalizedInput worked");
 
         if (!parseOffices())
             return false;
-        Log.d("WWD", " parseOffices worked");
+        //Log.d("WWD", " parseOffices worked");
 
         if (!parseOfficials())
             return false;
-        Log.d("WWD", " parseOfficials worked");
+        //Log.d("WWD", " parseOfficials worked");
 
         if (!parseIndicies())
             return false;
-        Log.d("WWD", " parseIndicies worked");
+        //Log.d("WWD", " parseIndicies worked");
 
         return true;
     }
@@ -114,7 +114,7 @@ class JsonUtil {
         }
 
         int numOffices = jsonOffices.length();
-        Log.d("WWD", "numoffices is " + numOffices);
+        //Log.d("WWD", "numoffices is " + numOffices);
         if (numOffices > 0) {
             for (int i = 0; i < numOffices; i++) {
                 try {
@@ -128,7 +128,7 @@ class JsonUtil {
 
                 try {
                     officeNameArray.add(officesJSONArray.get(i).getString("name"));
-                    Log.d("WWD", "\n\n office name " + i + " = " + officeNameArray.get(i));
+                   // Log.d("WWD", "\n\n office name " + i + " = " + officeNameArray.get(i));
                 } catch (JSONException e) {
                     Log.d("WWD", "error parsing name");
                     e.printStackTrace();
@@ -137,7 +137,7 @@ class JsonUtil {
 
                 try {
                     officialIndexJSONArray.add(officesJSONArray.get(i).getJSONArray("officialIndices"));
-                    Log.d("WWD", "\n\n officialIndexJSONArray is " + officialIndexJSONArray.get(i));
+                    //Log.d("WWD", "\n\n officialIndexJSONArray is " + officialIndexJSONArray.get(i));
                 } catch (JSONException e) {
                     Log.d("WWD", "error parsing officialIndexJSONArray");
                     e.printStackTrace();
@@ -160,18 +160,18 @@ class JsonUtil {
             e.printStackTrace();
             return false;
         }
-        Log.d("WWD", "the officals arrays size is " + jsonOfficials.length());
+       // Log.d("WWD", "the officals arrays size is " + jsonOfficials.length());
 
         int numOfficials = jsonOfficials.length();
         if (numOfficials > 0) {
-            Log.d("WWD", "above parseOfficials for loop");
+           // Log.d("WWD", "above parseOfficials for loop");
             for (int i = 0; i < numOfficials; i++) {
-                Log.d("WWD", "=======================================================================");
-                Log.d("WWD", "\n\n ****************** in for loop i = " + i);
-                Log.d("WWD", "=======================================================================");
+               // Log.d("WWD", "=======================================================================");
+               // Log.d("WWD", "\n\n ****************** in for loop i = " + i);
+               // Log.d("WWD", "=======================================================================");
                 try {
                     officialJSONArray.add(jsonOfficials.getJSONObject(i));
-                    Log.d("WWD", "official1 is " + officialJSONArray.get(i));
+                 //   Log.d("WWD", "official1 is " + officialJSONArray.get(i));
                 } catch (JSONException e) {
                     Log.d("WWD", "error parsing official1");
                     e.printStackTrace();
@@ -179,10 +179,10 @@ class JsonUtil {
                 }
 
                 // parse name
-                Log.d("WWD", "\n now parse name");
+               // Log.d("WWD", "\n now parse name");
                 try {
                     officialNameArray.add(officialJSONArray.get(i).getString("name"));
-                    Log.d("WWD", "name " + i + " = " + officialNameArray.get(i));
+                 //   Log.d("WWD", "name " + i + " = " + officialNameArray.get(i));
                 } catch (JSONException e1) {
                     Log.d("WWD", "error parsing name");
                     e1.printStackTrace();
@@ -190,10 +190,10 @@ class JsonUtil {
                 }
 
                 //parse address
-                Log.d("WWD", "\n now parse address");
+               // Log.d("WWD", "\n now parse address");
                 try {
                     addressJSONArray.add(officialJSONArray.get(i).getJSONArray("address"));
-                    Log.d("WWD", "addressJSONArray is " + addressJSONArray);
+               //     Log.d("WWD", "addressJSONArray is " + addressJSONArray);
                 } catch (JSONException e3) {
                     Log.d("WWD", "error parsing addressJSONArray");
                     e3.printStackTrace();
@@ -201,10 +201,10 @@ class JsonUtil {
                 }
 
                 // parse party
-                Log.d("WWD", "\n now parse party");
+              //  Log.d("WWD", "\n now parse party");
                 try {
                     officialPartyArray.add(officialJSONArray.get(i).getString("party"));
-                    Log.d("WWD", "party " + i + " = " + officialPartyArray.get(i));
+               //     Log.d("WWD", "party " + i + " = " + officialPartyArray.get(i));
                 } catch (JSONException e2) {
                     Log.d("WWD", "error parsing party");
                     e2.printStackTrace();
@@ -212,20 +212,20 @@ class JsonUtil {
                 }
 
                 // parse phones
-                Log.d("WWD", "\n now parse phones");
+              //  Log.d("WWD", "\n now parse phones");
                 try {
                     phoneJSONArray.add(officialJSONArray.get(i).getJSONArray("phones"));
-                    Log.d("WWD", "phoneJSONArray is " + phoneJSONArray);
+              //      Log.d("WWD", "phoneJSONArray is " + phoneJSONArray);
                 } catch (JSONException e6) {
                     Log.d("WWD", "error parsing phoneJSONArray");
                     e6.printStackTrace();
                     return false;
                 }
 
-                Log.d("WWD", "now parse official URL");
+              //  Log.d("WWD", "now parse official URL");
                 try {
                     officialURLArray.add(officialJSONArray.get(i).getJSONArray("urls"));
-                    Log.d("WWD", "url " + i + " = " + officialURLArray.get(i));
+             //       Log.d("WWD", "url " + i + " = " + officialURLArray.get(i));
                 } catch (Exception e5) {
                     officialURLArray.add(new JSONArray());
                     Log.d("WWD", "error parsing office url " + i);
@@ -234,10 +234,10 @@ class JsonUtil {
                 }
 
                 // parse photoURL
-                Log.d("WWD", "\nnow parse photoUrl");
+             //   Log.d("WWD", "\nnow parse photoUrl");
                 try {
                     officialPhotoURLArray.add(officialJSONArray.get(i).getString("photoUrl"));
-                    Log.d("WWD", "url " + i + " = " + officialPhotoURLArray.get(i));
+               //     Log.d("WWD", "url " + i + " = " + officialPhotoURLArray.get(i));
                 } catch (Exception e4) {
                     officialPhotoURLArray.add("");
                     Log.d("WWD", "error parsing photo url " + i);
@@ -246,7 +246,7 @@ class JsonUtil {
                 // now parse elements of address
                 try {
                     officialLine1Array.add(addressJSONArray.get(i).getJSONObject(0).getString("line1"));
-                    Log.d("WWD", "line1 " + i + " = " + officialLine1Array.get(i));
+             //       Log.d("WWD", "line1 " + i + " = " + officialLine1Array.get(i));
                 } catch (JSONException e7) {
                     Log.d("WWD", "error parsing line " + i);
                     e7.printStackTrace();
@@ -255,7 +255,7 @@ class JsonUtil {
 
                 try {
                     officialCityArray.add(addressJSONArray.get(i).getJSONObject(0).getString("city"));
-                    Log.d("WWD", "City " + i + " = " + officialCityArray.get(i));
+              //      Log.d("WWD", "City " + i + " = " + officialCityArray.get(i));
                 } catch (JSONException e8) {
                     Log.d("WWD", "error parsing city" + i);
                     e8.printStackTrace();
@@ -289,18 +289,18 @@ class JsonUtil {
     private static Boolean parseIndicies() {
         int numNames = officeNameArray.size();
         int numIndices;
-        Log.d("WWD", "numNames is " + numNames);
+      //  Log.d("WWD", "numNames is " + numNames);
         if (numNames > 0) {
             for (int i = 0; i < numNames; i++) {
                 String name = officeNameArray.get(i);
-                Log.d("WWD", "name is " + name);
+             //   Log.d("WWD", "name is " + name);
                 if (name.contains("Senator")) {
-                    Log.d("WWD", "found Senator");
+              //      Log.d("WWD", "found Senator");
                     numIndices = officialIndexJSONArray.get(i).length();
-                    Log.d("WWD", "for office " + i + " the number of indices is " + numIndices);
+               //     Log.d("WWD", "for office " + i + " the number of indices is " + numIndices);
                     try {
                         senator1Index = (Integer) (officialIndexJSONArray.get(i).get(0));
-                        Log.d("WWD", "\n\n ********* senator 1 index is " + senator1Index);
+              //          Log.d("WWD", "\n\n ********* senator 1 index is " + senator1Index);
                     } catch (JSONException e) {
                         Log.d("WWD", "error parsing senator 1 index");
                         e.printStackTrace();
@@ -308,14 +308,14 @@ class JsonUtil {
                     }
                     try {
                         senator2Index = (Integer) (officialIndexJSONArray.get(i).get(1));
-                        Log.d("WWD", "\n\n ************* senator 2 index is " + senator2Index);
+              //          Log.d("WWD", "\n\n ************* senator 2 index is " + senator2Index);
                     } catch (JSONException e) {
                         Log.d("WWD", "error parsing senator 2 index");
                         e.printStackTrace();
                         return false;
                     }
                 } else if (name.contains("Representative")) {
-                    Log.d("WWD", "found Representative");
+              //      Log.d("WWD", "found Representative");
                     try {
                         representativeIndex = (Integer) (officialIndexJSONArray.get(i).get(0));
                         Log.d("WWD", "\n\n **************** representative index is " + representativeIndex);
@@ -334,24 +334,24 @@ class JsonUtil {
     // access methods for senator 1
     // ---------------------------------------------------------------------------------------------
     public static String getSenator1PhotoURL() {
-        Log.d("WWD", "In getSenator1PhotoUrl, senator1Index is " + senator1Index);
+     //   Log.d("WWD", "In getSenator1PhotoUrl, senator1Index is " + senator1Index);
         if ((senator1Index < 0) || (senator1Index > 2))
             return "";
         if (officialPhotoURLArray.get(senator1Index).length() > 0) {
-            Log.d("WWD", "senator 1 url is " + officialPhotoURLArray.get(senator1Index));
+     //       Log.d("WWD", "senator 1 url is " + officialPhotoURLArray.get(senator1Index));
             return officialPhotoURLArray.get(senator1Index);
         }
-        Log.d("WWD", "senator 1 has no photo return empty string");
+     //   Log.d("WWD", "senator 1 has no photo return empty string");
         return "";
     }
 
     public static String getSenator1URL() {
-        Log.d("WWD", "In getSenator1Url, senator1Index is " + senator1Index);
+     //   Log.d("WWD", "In getSenator1Url, senator1Index is " + senator1Index);
         if ((senator1Index < 0) || (senator1Index > 2))
             return "";
         try {
             if (officialURLArray.get(senator1Index).get(0).toString().length() > 0) {
-                Log.d("WWD", "senator 1 url is " + officialURLArray.get(senator1Index).get(0).toString());
+      //          Log.d("WWD", "senator 1 url is " + officialURLArray.get(senator1Index).get(0).toString());
                 return officialURLArray.get(senator1Index).get(0).toString();
             }
         } catch (JSONException e) {
@@ -362,12 +362,12 @@ class JsonUtil {
     }
 
     public static String getSenator1Phone() {
-        Log.d("WWD", "In getSenator1Phone, senator1Index is " + senator1Index);
+    //    Log.d("WWD", "In getSenator1Phone, senator1Index is " + senator1Index);
         if ((senator1Index < 0) || (senator1Index > 2))
             return "";
         try {
             if (phoneJSONArray.get(senator1Index).get(0).toString().length() > 0) {
-                Log.d("WWD", "senator 1 phone is " + phoneJSONArray.get(senator1Index).get(0).toString());
+      //          Log.d("WWD", "senator 1 phone is " + phoneJSONArray.get(senator1Index).get(0).toString());
                 return phoneJSONArray.get(senator1Index).get(0).toString();
             }
         } catch (JSONException e) {
@@ -378,12 +378,12 @@ class JsonUtil {
     }
 
     public static String getSenator1Name() {
-        Log.d("WWD", "in getSenator1Name");
+    //    Log.d("WWD", "in getSenator1Name");
         //return "testStringName";
         if ((senator1Index < 0) || (senator1Index > 2))
             return "";
         if (officialNameArray.get(senator1Index).length() > 0) {
-            Log.d("WWD", "senator 1 name is " + officialNameArray.get(senator1Index));
+       //     Log.d("WWD", "senator 1 name is " + officialNameArray.get(senator1Index));
             return officialNameArray.get(senator1Index);
         }
         Log.d("WWD", "senator 1 has no name return empty string");
@@ -391,12 +391,12 @@ class JsonUtil {
     }
 
     public static String getSenator1Party() {
-        Log.d("WWD", "in getSenator1Party");
+     //   Log.d("WWD", "in getSenator1Party");
         //return "testStringName";
         if ((senator1Index < 0) || (senator1Index > 2))
             return "";
         if (officialPartyArray.get(senator1Index).length() > 0) {
-            Log.d("WWD", "senator 1 party is " + officialPartyArray.get(senator1Index));
+       //     Log.d("WWD", "senator 1 party is " + officialPartyArray.get(senator1Index));
             return officialPartyArray.get(senator1Index);
         }
         Log.d("WWD", "senator 1 has no party return empty string");
@@ -404,12 +404,12 @@ class JsonUtil {
     }
 
     public static String getSenator1AddressLine1() {
-        Log.d("WWD", "in getSenator1AddressLine1");
+    //    Log.d("WWD", "in getSenator1AddressLine1");
         //return "testStringName";
         if ((senator1Index < 0) || (senator1Index > 2))
             return "";
         if (officialLine1Array.get(senator1Index).length() > 0) {
-            Log.d("WWD", "senator 1 party is " + officialLine1Array.get(senator1Index));
+       //     Log.d("WWD", "senator 1 party is " + officialLine1Array.get(senator1Index));
             return officialLine1Array.get(senator1Index);
         }
         Log.d("WWD", "senator 1 has no party return empty string");
@@ -417,24 +417,24 @@ class JsonUtil {
     }
 
     public static String getSenator1AddressLine2() {
-        Log.d("WWD", "in getSenator1AddressLine2");
+    //    Log.d("WWD", "in getSenator1AddressLine2");
         //return "testStringName";
         String line2 = "";
         if ((senator1Index < 0) || (senator1Index > 2))
             return "";
         if (officialCityArray.get(senator1Index).length() > 0) {
-            Log.d("WWD", "senator 1 city is " + officialCityArray.get(senator1Index));
+     //       Log.d("WWD", "senator 1 city is " + officialCityArray.get(senator1Index));
             line2 += officialCityArray.get(senator1Index);
         }
         if (officialStateArray.get(senator1Index).length() > 0) {
-            Log.d("WWD", "senator 1 State is " + officialStateArray.get(senator1Index));
+       //     Log.d("WWD", "senator 1 State is " + officialStateArray.get(senator1Index));
             line2 += ", " + officialStateArray.get(senator1Index);
         }
         if (officialZipCodeArray.get(senator1Index).length() > 0) {
-            Log.d("WWD", "senator 1 Zip Code is " + officialZipCodeArray.get(senator1Index));
+       //     Log.d("WWD", "senator 1 Zip Code is " + officialZipCodeArray.get(senator1Index));
             line2 += " " + officialZipCodeArray.get(senator1Index);
         }
-        Log.d("WWD", "line2 is " + line2);
+     //   Log.d("WWD", "line2 is " + line2);
         return line2;
     }
 
@@ -442,12 +442,12 @@ class JsonUtil {
     // access methods for senator 2
     // ---------------------------------------------------------------------------------------------
     public static String getSenator2URL() {
-        Log.d("WWD", "In getSenator2Url, senator2Index is " + senator2Index);
+    //    Log.d("WWD", "In getSenator2Url, senator2Index is " + senator2Index);
         if ((senator2Index < 0) || (senator2Index > 2))
             return "";
         try {
             if (officialURLArray.get(senator2Index).get(0).toString().length() > 0) {
-                Log.d("WWD", "senator 2 url is " + officialURLArray.get(senator2Index).get(0).toString());
+         //       Log.d("WWD", "senator 2 url is " + officialURLArray.get(senator2Index).get(0).toString());
                 return officialURLArray.get(senator2Index).get(0).toString();
             }
         } catch (JSONException e) {
@@ -458,12 +458,12 @@ class JsonUtil {
     }
 
     public static String getSenator2Phone() {
-        Log.d("WWD", "In getSenator2Phone, senator2Index is " + senator2Index);
+    //    Log.d("WWD", "In getSenator2Phone, senator2Index is " + senator2Index);
         if ((senator2Index < 0) || (senator2Index > 2))
             return "";
         try {
             if (phoneJSONArray.get(senator2Index).get(0).toString().length() > 0) {
-                Log.d("WWD", "senator 2 phone is " + phoneJSONArray.get(senator2Index).get(0).toString());
+      //          Log.d("WWD", "senator 2 phone is " + phoneJSONArray.get(senator2Index).get(0).toString());
                 return phoneJSONArray.get(senator2Index).get(0).toString();
             }
         } catch (JSONException e) {
@@ -477,10 +477,10 @@ class JsonUtil {
         if ((senator2Index < 0) || (senator2Index > 2))
             return "";
         if (officialPhotoURLArray.get(senator2Index).length() > 0) {
-            Log.d("WWD", "senator 2 url is " + officialPhotoURLArray.get(senator2Index));
+    //        Log.d("WWD", "senator 2 url is " + officialPhotoURLArray.get(senator2Index));
             return officialPhotoURLArray.get(senator2Index);
         }
-        Log.d("WWD", "senator2 has no photo return empty string");
+  //      Log.d("WWD", "senator2 has no photo return empty string");
         return "";
     }
 
@@ -488,32 +488,32 @@ class JsonUtil {
         if ((senator2Index < 0) || (senator2Index > 2))
             return "";
         if (officialNameArray.get(senator2Index).length() > 0) {
-            Log.d("WWD", "senator 2 name is " + officialNameArray.get(senator2Index));
+     //       Log.d("WWD", "senator 2 name is " + officialNameArray.get(senator2Index));
             return officialNameArray.get(senator2Index);
         }
-        Log.d("WWD", "senator2 has no name return empty string");
+    //    Log.d("WWD", "senator2 has no name return empty string");
         return "";
     }
 
     public static String getSenator2Party() {
-        Log.d("WWD", "in getSenator2Party");
+    //    Log.d("WWD", "in getSenator2Party");
         //return "testStringName";
         if ((senator2Index < 0) || (senator2Index > 2))
             return "";
         if (officialPartyArray.get(senator2Index).length() > 0) {
-            Log.d("WWD", "senator 2 party is " + officialPartyArray.get(senator2Index));
+     //       Log.d("WWD", "senator 2 party is " + officialPartyArray.get(senator2Index));
             return officialPartyArray.get(senator2Index);
         }
-        Log.d("WWD", "senator 2 has no party return empty string");
+   //     Log.d("WWD", "senator 2 has no party return empty string");
         return "";
     }
 
     public static String getSenator2AddressLine1() {
-        Log.d("WWD", "in getSenator2AddressLine1");
+    //    Log.d("WWD", "in getSenator2AddressLine1");
         if ((senator2Index < 0) || (senator2Index > 2))
             return "";
         if (officialLine1Array.get(senator2Index).length() > 0) {
-            Log.d("WWD", "senator 2 party is " + officialLine1Array.get(senator2Index));
+      //      Log.d("WWD", "senator 2 party is " + officialLine1Array.get(senator2Index));
             return officialLine1Array.get(senator2Index);
         }
         Log.d("WWD", "senator 2 line 1 return empty string");
@@ -521,24 +521,24 @@ class JsonUtil {
     }
 
     public static String getSenator2AddressLine2() {
-        Log.d("WWD", "in getSenator2AddressLine2");
+    //    Log.d("WWD", "in getSenator2AddressLine2");
         //return "testStringName";
         String line2 = "";
         if ((senator2Index < 0) || (senator2Index > 2))
             return "";
         if (officialCityArray.get(senator2Index).length() > 0) {
-            Log.d("WWD", "senator 2 city is " + officialCityArray.get(senator2Index));
+     //       Log.d("WWD", "senator 2 city is " + officialCityArray.get(senator2Index));
             line2 += officialCityArray.get(senator2Index);
         }
         if (officialStateArray.get(senator2Index).length() > 0) {
-            Log.d("WWD", "senator 2 State is " + officialStateArray.get(senator2Index));
+      //      Log.d("WWD", "senator 2 State is " + officialStateArray.get(senator2Index));
             line2 += ", " + officialStateArray.get(senator2Index);
         }
         if (officialZipCodeArray.get(senator2Index).length() > 0) {
-            Log.d("WWD", "senator 2 Zip Code is " + officialZipCodeArray.get(senator2Index));
+     //       Log.d("WWD", "senator 2 Zip Code is " + officialZipCodeArray.get(senator2Index));
             line2 += " " + officialZipCodeArray.get(senator2Index);
         }
-        Log.d("WWD", "line2 is " + line2);
+    //    Log.d("WWD", "line2 is " + line2);
         return line2;
     }
 
@@ -550,20 +550,20 @@ class JsonUtil {
         if ((representativeIndex < 0) || (representativeIndex > 2))
             return "";
         if (officialURLArray.get(representativeIndex).length() > 0) {
-            Log.d("WWD", "represenative url is " + officialURLArray.get(representativeIndex));
+     //       Log.d("WWD", "represenative url is " + officialURLArray.get(representativeIndex));
             return officialPhotoURLArray.get(representativeIndex);
         }
-        Log.d("WWD", "representaive has no photo return empty string");
+    //    Log.d("WWD", "representaive has no photo return empty string");
         return "";
     }
 
     public static String getRepresentativeURL() {
-        Log.d("WWD", "In getSenator2Url, senator2Index is " + senator2Index);
+    //    Log.d("WWD", "In getSenator2Url, senator2Index is " + senator2Index);
         if ((representativeIndex < 0) || (representativeIndex > 2))
             return "";
         try {
             if (officialURLArray.get(representativeIndex).get(0).toString().length() > 0) {
-                Log.d("WWD", "representative url is " + officialURLArray.get(representativeIndex).get(0).toString());
+     //           Log.d("WWD", "representative url is " + officialURLArray.get(representativeIndex).get(0).toString());
                 return officialURLArray.get(representativeIndex).get(0).toString();
             }
         } catch (JSONException e) {
@@ -574,12 +574,12 @@ class JsonUtil {
     }
 
     public static String getRepresentativePhone() {
-        Log.d("WWD", "In getRepresentativePhone, representativeIndex is " + representativeIndex);
+     //   Log.d("WWD", "In getRepresentativePhone, representativeIndex is " + representativeIndex);
         if ((representativeIndex < 0) || (representativeIndex > 2))
             return "";
         try {
             if (phoneJSONArray.get(representativeIndex).get(0).toString().length() > 0) {
-                Log.d("WWD", "representative phone is " + phoneJSONArray.get(representativeIndex).get(0).toString());
+      //          Log.d("WWD", "representative phone is " + phoneJSONArray.get(representativeIndex).get(0).toString());
                 return phoneJSONArray.get(representativeIndex).get(0).toString();
             }
         } catch (JSONException e) {
@@ -593,7 +593,7 @@ class JsonUtil {
         if ((representativeIndex < 0) || (representativeIndex > 2))
             return "";
         if (officialNameArray.get(representativeIndex).length() > 0) {
-            Log.d("WWD", "representative name is " + officialNameArray.get(representativeIndex));
+      //      Log.d("WWD", "representative name is " + officialNameArray.get(representativeIndex));
             return officialNameArray.get(representativeIndex);
         }
         return "";
@@ -603,44 +603,44 @@ class JsonUtil {
         if ((representativeIndex < 0) || (representativeIndex > 2))
             return "";
         if (officialPartyArray.get(representativeIndex).length() > 0) {
-            Log.d("WWD", "representative party is " + officialPartyArray.get(representativeIndex));
+      //      Log.d("WWD", "representative party is " + officialPartyArray.get(representativeIndex));
             return officialPartyArray.get(representativeIndex);
         }
         return "";
     }
 
     public static String getRepresentativeAddressLine1() {
-        Log.d("WWD", "in getRepresentativeAddressLine1");
+    //    Log.d("WWD", "in getRepresentativeAddressLine1");
         //return "testStringName";
         if ((representativeIndex < 0) || (representativeIndex > 2))
             return "";
         if (officialLine1Array.get(representativeIndex).length() > 0) {
-            Log.d("WWD", "senator 2 party is " + officialLine1Array.get(representativeIndex));
+     //       Log.d("WWD", "senator 2 party is " + officialLine1Array.get(representativeIndex));
             return officialLine1Array.get(representativeIndex);
         }
-        Log.d("WWD", "representative line 1 return empty string");
+   //     Log.d("WWD", "representative line 1 return empty string");
         return "";
     }
 
     public static String getRepresentativeAddressLine2() {
-        Log.d("WWD", "in getRepresentativeAddressLine2");
+    //    Log.d("WWD", "in getRepresentativeAddressLine2");
         //return "testStringName";
         String line2 = "";
         if ((representativeIndex < 0) || (representativeIndex > 2))
             return "";
         if (officialCityArray.get(representativeIndex).length() > 0) {
-            Log.d("WWD", "senator 2 city is " + officialCityArray.get(representativeIndex));
+      //      Log.d("WWD", "senator 2 city is " + officialCityArray.get(representativeIndex));
             line2 += officialCityArray.get(representativeIndex);
         }
         if (officialStateArray.get(representativeIndex).length() > 0) {
-            Log.d("WWD", "senator 2 State is " + officialStateArray.get(representativeIndex));
+      //      Log.d("WWD", "senator 2 State is " + officialStateArray.get(representativeIndex));
             line2 += ", " + officialStateArray.get(representativeIndex);
         }
         if (officialZipCodeArray.get(representativeIndex).length() > 0) {
-            Log.d("WWD", "senator 2 Zip Code is " + officialZipCodeArray.get(representativeIndex));
+    //        Log.d("WWD", "senator 2 Zip Code is " + officialZipCodeArray.get(representativeIndex));
             line2 += " " + officialZipCodeArray.get(representativeIndex);
         }
-        Log.d("WWD", "line2 is " + line2);
+    //    Log.d("WWD", "line2 is " + line2);
         return line2;
     }
 }

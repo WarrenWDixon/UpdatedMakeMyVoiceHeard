@@ -29,11 +29,11 @@ public class DetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("WWD", "in Detail Activity onCreate");
+      //  Log.d("WWD", "in Detail Activity onCreate");
         setContentView(R.layout.activity_detail);
         Intent intent = getIntent();
         Integer index = intent.getIntExtra(MainActivity.IMAGE_SELECTION, 0);
-        Log.d("WWD", "the selection index was " + index);
+      //  Log.d("WWD", "the selection index was " + index);
 
         // get references to xml
         mOfficialLabel = (TextView) findViewById(R.id.official_label);
@@ -54,7 +54,7 @@ public class DetailActivity extends AppCompatActivity {
             mWebsite.setText(JsonUtil.getSenator1URL());
             mPhoneNumber.setText(JsonUtil.getSenator1Phone());
             String officialUrl = JsonUtil.getSenator1PhotoURL();
-            Log.d("WWD", "officialUrl is " + officialUrl);
+           // Log.d("WWD", "officialUrl is " + officialUrl);
             if (officialUrl.length() == 0) {
                 mOfficialImage.setImageResource(R.drawable.nophoto);
             } else {
@@ -69,7 +69,7 @@ public class DetailActivity extends AppCompatActivity {
             mWebsite.setText(JsonUtil.getSenator2URL());
             mPhoneNumber.setText(JsonUtil.getSenator2Phone());
             String officialUrl = JsonUtil.getSenator2PhotoURL();
-            Log.d("WWD", "officialUrl is " + officialUrl);
+           // Log.d("WWD", "officialUrl is " + officialUrl);
             if (officialUrl.length() == 0) {
                 mOfficialImage.setImageResource(R.drawable.nophoto);
             } else {
@@ -84,7 +84,7 @@ public class DetailActivity extends AppCompatActivity {
             mWebsite.setText(JsonUtil.getRepresentativeURL());
             String officialUrl = JsonUtil.getRepresentativePhotoURL();
             mPhoneNumber.setText(JsonUtil.getRepresentativePhone());
-            Log.d("WWD", "officialUrl is " + officialUrl);
+          //  Log.d("WWD", "officialUrl is " + officialUrl);
             if (officialUrl.length() == 0) {
                 mOfficialImage.setImageResource(R.drawable.nophoto);
             } else {
