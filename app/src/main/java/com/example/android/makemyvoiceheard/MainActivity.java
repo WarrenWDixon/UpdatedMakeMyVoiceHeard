@@ -37,9 +37,9 @@ public class MainActivity extends AppCompatActivity {
     private ImageView senator2Image;
     private ImageView representativeImage;
 
-    private static final Integer SENATOR_ONE = 1;
-    private static final Integer SENATOR_TWO = 2;
-    private static final Integer REPRESENTATIVE = 3;
+    public static final Integer SENATOR_ONE = 1;
+    public static final Integer SENATOR_TWO = 2;
+    public static final Integer REPRESENTATIVE = 3;
     public static final String IMAGE_SELECTION = "SELECTION";
 
 
