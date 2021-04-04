@@ -361,6 +361,22 @@ class JsonUtil {
         return "";
     }
 
+    public static String getSenator1Phone() {
+        Log.d("WWD", "In getSenator1Phone, senator1Index is " + senator1Index);
+        if ((senator1Index < 0) || (senator1Index > 2))
+            return "";
+        try {
+            if (phoneJSONArray.get(senator1Index).get(0).toString().length() > 0) {
+                Log.d("WWD", "senator 1 phone is " + phoneJSONArray.get(senator1Index).get(0).toString());
+                return phoneJSONArray.get(senator1Index).get(0).toString();
+            }
+        } catch (JSONException e) {
+            Log.d("WWD", "senator 1 has no phone return empty string");
+            return "";
+        }
+        return "";
+    }
+
     public static String getSenator1Name() {
         Log.d("WWD", "in getSenator1Name");
         //return "testStringName";
@@ -436,6 +452,22 @@ class JsonUtil {
             }
         } catch (JSONException e) {
             Log.d("WWD", "senator 2 has no URL return empty string");
+            return "";
+        }
+        return "";
+    }
+
+    public static String getSenator2Phone() {
+        Log.d("WWD", "In getSenator2Phone, senator2Index is " + senator2Index);
+        if ((senator2Index < 0) || (senator2Index > 2))
+            return "";
+        try {
+            if (phoneJSONArray.get(senator2Index).get(0).toString().length() > 0) {
+                Log.d("WWD", "senator 2 phone is " + phoneJSONArray.get(senator2Index).get(0).toString());
+                return phoneJSONArray.get(senator2Index).get(0).toString();
+            }
+        } catch (JSONException e) {
+            Log.d("WWD", "senator 2 has no phone return empty string");
             return "";
         }
         return "";
@@ -536,6 +568,22 @@ class JsonUtil {
             }
         } catch (JSONException e) {
             Log.d("WWD", "representative has no URL return empty string");
+            return "";
+        }
+        return "";
+    }
+
+    public static String getRepresentativePhone() {
+        Log.d("WWD", "In getRepresentativePhone, representativeIndex is " + representativeIndex);
+        if ((representativeIndex < 0) || (representativeIndex > 2))
+            return "";
+        try {
+            if (phoneJSONArray.get(representativeIndex).get(0).toString().length() > 0) {
+                Log.d("WWD", "representative phone is " + phoneJSONArray.get(representativeIndex).get(0).toString());
+                return phoneJSONArray.get(representativeIndex).get(0).toString();
+            }
+        } catch (JSONException e) {
+            Log.d("WWD", "representative has no phone return empty string");
             return "";
         }
         return "";

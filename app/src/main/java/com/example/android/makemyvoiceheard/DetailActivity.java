@@ -52,6 +52,7 @@ public class DetailActivity extends AppCompatActivity {
             mAddressLine1.setText(JsonUtil.getSenator1AddressLine1());
             mAddressLine2.setText(JsonUtil.getSenator1AddressLine2());
             mWebsite.setText(JsonUtil.getSenator1URL());
+            mPhoneNumber.setText(JsonUtil.getSenator1Phone());
             String officialUrl = JsonUtil.getSenator1PhotoURL();
             Log.d("WWD", "officialUrl is " + officialUrl);
             if (officialUrl.length() == 0) {
@@ -66,6 +67,7 @@ public class DetailActivity extends AppCompatActivity {
             mAddressLine1.setText(JsonUtil.getSenator2AddressLine1());
             mAddressLine2.setText(JsonUtil.getSenator2AddressLine2());
             mWebsite.setText(JsonUtil.getSenator2URL());
+            mPhoneNumber.setText(JsonUtil.getSenator2Phone());
             String officialUrl = JsonUtil.getSenator2PhotoURL();
             Log.d("WWD", "officialUrl is " + officialUrl);
             if (officialUrl.length() == 0) {
@@ -81,6 +83,7 @@ public class DetailActivity extends AppCompatActivity {
             mAddressLine2.setText(JsonUtil.getRepresentativeAddressLine2());
             mWebsite.setText(JsonUtil.getRepresentativeURL());
             String officialUrl = JsonUtil.getRepresentativePhotoURL();
+            mPhoneNumber.setText(JsonUtil.getRepresentativePhone());
             Log.d("WWD", "officialUrl is " + officialUrl);
             if (officialUrl.length() == 0) {
                 mOfficialImage.setImageResource(R.drawable.nophoto);
