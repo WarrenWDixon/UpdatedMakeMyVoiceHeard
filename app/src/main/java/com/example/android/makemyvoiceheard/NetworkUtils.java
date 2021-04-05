@@ -19,7 +19,8 @@ public class NetworkUtils {
     final static String CIVICS_URL = "https://civicinfo.googleapis.com/civicinfo/v2/representatives?address=6703%20Canterbury%20Dr&includeOffices=true&levels=country&roles=legislatorUpperBody&roles=legislatorLowerBody&key=AIzaSyD_7MEtxj3fSEG6eADD5W2tReHTfr6buY4";
     final static String CIVICS_URL_PART2 = "--header 'Accept: application/json' --compressed";
     final static String HTTP_STRING  = "https://civicinfo.googleapis.com/civicinfo/v2/representatives?address=6703%20Canterbury%20Dr%2C%20Frisco%2C%20TX%2075035&includeOffices=true&levels=country&roles=legislatorUpperBody&roles=legislatorLowerBody&key=AIzaSyD_7MEtxj3fSEG6eADD5W2tReHTfr6buY4";
-
+    final static String API_BASE_STRING  = "https://civicinfo.googleapis.com/civicinfo/v2/representatives?address=";
+    final static String API_PARAMETERS_STRING  = "&includeOffices=true&levels=country&roles=legislatorUpperBody&roles=legislatorLowerBody&key=AIzaSyD_7MEtxj3fSEG6eADD5W2tReHTfr6buY4";
     final static String ACCEPT = " \n\n  Accept: application/json";
     private static boolean networkConnected;
 
@@ -31,14 +32,12 @@ public class NetworkUtils {
      * @throws IOException Related to network and stream reading
      */
     public static String getResponseFromHttpUrl(String address) throws IOException {
+        Log.d("WWD", " ---------------- getResponseFromHttpUrl address is " + address);
         //String urlString = CIVICS_URL + CIVICS_URL_PART2;
-        String urlString = HTTP_STRING;
+        String urlString = API_BASE_STRING + address + API_PARAMETERS_STRING;
         //urlString += ACCEPT;
         Log.d("WWD", "the urlstring is " + urlString);
-        /* Uri builtUri = Uri.parse(urlString).buildUpon()
-                .build(); */
-
-        Log.d("WWD", "lets 2 try build uri using cnn");
+        Log.d("WWD", " the original HTTP_STRING is " + HTTP_STRING);
 
         Uri builtUri = Uri.parse(urlString).buildUpon()
                 .build();
@@ -91,7 +90,7 @@ public class NetworkUtils {
 
             while ((line = reader.readLine()) != null) {
                 sb.append(line + "\n");
-                //Log.d("WWD", "read " + line);
+                Log.d("WWD", "read " + line);
             }
             return sb.toString();
         } finally {

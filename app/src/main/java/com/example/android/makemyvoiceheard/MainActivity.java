@@ -60,8 +60,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         String mPermission = Manifest.permission.ACCESS_FINE_LOCATION;
         final int REQUEST_CODE_PERMISSION = 2;
-
-        String userAddress = "temp";
+        String encodeAddress;
+        String encodedAddress = "";
+       
         try {
             if (ContextCompat.checkSelfPermission(this, mPermission)
                     != PackageManager.PERMISSION_GRANTED) {
@@ -92,9 +93,9 @@ public class MainActivity extends AppCompatActivity {
                     String address = "";
                     address += listAddress.get(0).getAddressLine(0);
                     Log.d("WWD", " -------------  address line is " + address);
-                    String encodeAddress = URLEncoder.encode(address, "UTF-8");
+                    encodeAddress = URLEncoder.encode(address, "UTF-8");
                     Log.d("WWD", "-------------- the the encoded address is " + encodeAddress);
-                    String encodedAddress = encodeAddress.replace("+", "%20");
+                    encodedAddress = encodeAddress.replace("+", "%20");
                     Log.d("WWD", " -------------- the encoded address afer replacment is " + encodedAddress);
 
                    // URL url = new URL(address);
@@ -109,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
             // Ask user to enable GPS/network in settings
             gps.showSettingsAlert();
         }
-        new CivicQueryTask().execute(userAddress);
+        new CivicQueryTask().execute(encodedAddress);
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
