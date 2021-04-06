@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         final int REQUEST_CODE_PERMISSION = 2;
         String encodeAddress;
         String encodedAddress = "";
-       
+
         try {
             if (ContextCompat.checkSelfPermission(this, mPermission)
                     != PackageManager.PERMISSION_GRANTED) {
