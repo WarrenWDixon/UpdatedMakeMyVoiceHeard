@@ -99,5 +99,6 @@
         android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold"
+        android:onClick="placeCall"
         android:layout_gravity="center" /> -->
 </LinearLayout>

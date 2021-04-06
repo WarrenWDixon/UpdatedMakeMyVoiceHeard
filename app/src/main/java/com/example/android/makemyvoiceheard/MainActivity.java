@@ -59,15 +59,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         String mPermission = Manifest.permission.ACCESS_FINE_LOCATION;
+        String mCallPermission = Manifest.permission.CALL_PHONE;
         final int REQUEST_CODE_PERMISSION = 2;
         String encodeAddress;
         String encodedAddress = "";
 
         try {
-            if (ContextCompat.checkSelfPermission(this, mPermission)
-                    != PackageManager.PERMISSION_GRANTED) {
+            if ((ContextCompat.checkSelfPermission(this, mPermission)
+                    != PackageManager.PERMISSION_GRANTED) ||  (ContextCompat.checkSelfPermission(this, mCallPermission)
+                    != PackageManager.PERMISSION_GRANTED)) {
                 Log.d("WWD", "requesting permission");
-                requestPermissions(new String[]{mPermission}, REQUEST_CODE_PERMISSION);
+                requestPermissions(new String[]{mPermission,mCallPermission}, REQUEST_CODE_PERMISSION);
 
                 // If any permission above not allowed by user, this condition will execute every time, else your else part will work
             }
@@ -118,13 +120,6 @@ public class MainActivity extends AppCompatActivity {
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-    }
-
-    public void goToDetail(View view) {
-      //  Log.d("WWD", "in goToDetail");
-        Intent intent = new Intent(this, DetailActivity.class);
-     //   Log.d("WWD", "in goToDetail call startActivity");
-        startActivity(intent);
     }
 
     public void onClickSenator1(View view) {
