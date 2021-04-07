@@ -105,7 +105,8 @@ public class DetailActivity extends AppCompatActivity {
 
     public void placeCall(View view) {
         Intent callIntent = new Intent(Intent.ACTION_CALL);
-        callIntent.setData(Uri.parse("tel: +" + mPhoneNumber));
+        Log.d("WWD", "phone number is " + mPhoneNumber);
+        callIntent.setData(Uri.parse("tel:" + mPhoneNumber));
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
