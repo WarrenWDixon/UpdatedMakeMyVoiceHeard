@@ -1,13 +1,15 @@
 package com.example.android.makemyvoiceheard;
 
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import org.json.JSONArray;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
+import android.os.Bundle;
 import java.util.ArrayList;
+import android.support.v7.app.AppCompatActivity;
 import java.util.List;
 
 class JsonUtil {
@@ -32,6 +34,11 @@ class JsonUtil {
     private static List<String> officialZipCodeArray;
     private static List<String> officeNameArray;
     private static List<JSONArray> officialIndexJSONArray;
+
+    //member variables for storing data in shared preferences
+    private static SharedPreferences mPreferences;
+    private static String sharedPrefFile = "com.example.android.makemyvoiceheardprefs";
+
 
     public static Boolean parseCivicsJson(String json) {
         // first convert entire response to JSON object
@@ -643,4 +650,5 @@ class JsonUtil {
     //    Log.d("WWD", "line2 is " + line2);
         return line2;
     }
+
 }

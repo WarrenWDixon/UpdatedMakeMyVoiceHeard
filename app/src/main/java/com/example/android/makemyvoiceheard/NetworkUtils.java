@@ -23,6 +23,7 @@ public class NetworkUtils {
     final static String API_PARAMETERS_STRING  = "&includeOffices=true&levels=country&roles=legislatorUpperBody&roles=legislatorLowerBody&key=AIzaSyD_7MEtxj3fSEG6eADD5W2tReHTfr6buY4";
     final static String ACCEPT = " \n\n  Accept: application/json";
     private static boolean networkConnected;
+    private static Boolean downloadDataSuccess;
 
     /**
      * This method returns the entire result from the HTTP response.
@@ -32,6 +33,7 @@ public class NetworkUtils {
      * @throws IOException Related to network and stream reading
      */
     public static String getResponseFromHttpUrl(String address) throws IOException {
+        downloadDataSuccess = false;
         Log.d("WWD", " ---------------- getResponseFromHttpUrl address is " + address);
         //String urlString = CIVICS_URL + CIVICS_URL_PART2;
         String urlString = API_BASE_STRING + address + API_PARAMETERS_STRING;
