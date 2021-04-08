@@ -22,84 +22,70 @@ import org.w3c.dom.Text;
 import java.io.IOException;
 
 public class DetailActivity extends AppCompatActivity {
-    private TextView mOfficialLabel;
-    private TextView mOfficialName;
-    private TextView mPartyLabel;
-    private TextView mAddressLine1;
-    private TextView mAddressLine2;
-    private TextView mWebsite;
-    private ImageView mOfficialImage;
-    private Button mButtonPhoneNumber;
+    private TextView  mOfficialLabelTV;
+    private TextView  mOfficialNameTV;
+    private TextView  mPartyLabelTV;
+    private TextView  mAddressLine1TV;
+    private TextView  mAddressLine2TV;
+    private TextView  mOfficialURLTV;
+    private ImageView mOfficialImageIV;
+    private Button    mPhoneNumberBTN;
+
     private String mPhoneNumber;
+    private String mOfficialLabel;
+    private String mOfficialName;
+    private String mPartyLabel;
+    private String mAddressLine1;
+    private String mAddressLine2;
+    private String mOfficialURL;
+    private String mOfficialImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //  Log.d("WWD", "in Detail Activity onCreate");
         setContentView(R.layout.activity_detail);
-        Intent intent = getIntent();
-        Integer index = intent.getIntExtra(MainActivity.IMAGE_SELECTION, 0);
-        //  Log.d("WWD", "the selection index was " + index);
 
-        // get references to xml
-        mOfficialLabel = (TextView) findViewById(R.id.official_label);
-        mOfficialName = (TextView) findViewById(R.id.official_name);
-        mPartyLabel = (TextView) findViewById(R.id.party_label);
-        mAddressLine1 = (TextView) findViewById(R.id.address_line_1);
-        mAddressLine2 = (TextView) findViewById(R.id.address_line_2);
-        mWebsite = (TextView) findViewById(R.id.website);
-        mOfficialImage = (ImageView) findViewById(R.id.official_image);
-        mButtonPhoneNumber = (Button) findViewById(R.id.phone);
+        Intent intent  = getIntent();
+        mOfficialLabel = intent.getStringExtra(MainActivity.OFFICIAL_TYPE);
+        mOfficialName  = intent.getStringExtra(MainActivity.OFFICIAL_NAME);
+        mAddressLine1  = intent.getStringExtra(MainActivity.OFFICIAL_ADDRESS_LINE1);
+        mAddressLine2  = intent.getStringExtra(MainActivity.OFFICIAL_ADDRESS_LINE2);
+        mPartyLabel    = intent.getStringExtra(MainActivity.OFFICIAL_PARTY);
+        mOfficialURL   = intent.getStringExtra(MainActivity.OFFICIAL_URL);
+        mOfficialImage = intent.getStringExtra(MainActivity.OFFICIAL_PHOTO_URL);
+        mPhoneNumber   = intent.getStringExtra(MainActivity.OFFICIAL_PHONE);
 
-        if (index == MainActivity.SENATOR_ONE) {
-            mOfficialLabel.setText("YOUR SENATOR");
-            mOfficialName.setText(JsonUtil.getSenator1Name());
-            mPartyLabel.setText(JsonUtil.getSenator1Party());
-            mAddressLine1.setText(JsonUtil.getSenator1AddressLine1());
-            mAddressLine2.setText(JsonUtil.getSenator1AddressLine2());
-            mWebsite.setText(JsonUtil.getSenator1URL());
-            mPhoneNumber = JsonUtil.getSenator1Phone();
-            mButtonPhoneNumber.setText(mPhoneNumber);
-            String officialUrl = JsonUtil.getSenator1PhotoURL();
-            // Log.d("WWD", "officialUrl is " + officialUrl);
-            if (officialUrl.length() == 0) {
-                mOfficialImage.setImageResource(R.drawable.nophoto);
-            } else {
-                Picasso.get().load(officialUrl).into(mOfficialImage);
-            }
-        } else if (index == MainActivity.SENATOR_TWO) {
-            mOfficialLabel.setText("YOUR SENATOR");
-            mOfficialName.setText(JsonUtil.getSenator2Name());
-            mPartyLabel.setText(JsonUtil.getSenator2Party());
-            mAddressLine1.setText(JsonUtil.getSenator2AddressLine1());
-            mAddressLine2.setText(JsonUtil.getSenator2AddressLine2());
-            mWebsite.setText(JsonUtil.getSenator2URL());
-            mPhoneNumber = JsonUtil.getSenator2Phone();
-            mButtonPhoneNumber.setText(mPhoneNumber);
-            String officialUrl = JsonUtil.getSenator2PhotoURL();
-            // Log.d("WWD", "officialUrl is " + officialUrl);
-            if (officialUrl.length() == 0) {
-                mOfficialImage.setImageResource(R.drawable.nophoto);
-            } else {
-                Picasso.get().load(officialUrl).into(mOfficialImage);
-            }
+        Log.d("WWD", "mOfficialLabel is  " + mOfficialLabel);
+        Log.d("WWD", "mOfficialName is " + mOfficialName);
+        Log.d("WWD", "mAddressLine1 is " + mAddressLine1);
+        Log.d("WWD", "mAddressLine2 is " + mAddressLine2);
+        Log.d("WWD", "mWebsite is " + mOfficialURL);
+        Log.d("WWD", "mOfficialImage is " + mOfficialImage);
+
+        mOfficialLabelTV = (TextView) findViewById(R.id.official_label);
+        mOfficialNameTV  = (TextView) findViewById(R.id.official_name);
+        mPartyLabelTV    = (TextView) findViewById(R.id.party_label);
+        mAddressLine1TV  = (TextView) findViewById(R.id.address_line_1);
+        mAddressLine2TV  = (TextView) findViewById(R.id.address_line_2);
+        mOfficialURLTV   = (TextView) findViewById(R.id.website);
+        mOfficialImageIV = (ImageView) findViewById(R.id.official_image);
+        mPhoneNumberBTN  = (Button) findViewById(R.id.phone);
+
+        mOfficialLabelTV.setText(mOfficialLabel);
+        mOfficialNameTV.setText(mOfficialName);
+        mPartyLabelTV.setText(mPartyLabel);
+        mAddressLine1TV.setText(mAddressLine1);
+        mAddressLine2TV.setText(mAddressLine2);
+        mOfficialURLTV.setText(mOfficialURL);
+        mPhoneNumberBTN.setText(mPhoneNumber);
+
+        if (mOfficialImage.length() == 0) {
+            mOfficialImageIV.setImageResource(R.drawable.nophoto);
         } else {
-            mOfficialLabel.setText("YOUR REPRESENTATIVE");
-            mOfficialName.setText(JsonUtil.getRepresentativeName());
-            mPartyLabel.setText(JsonUtil.getRepresentativeParty());
-            mAddressLine1.setText(JsonUtil.getRepresentativeAddressLine1());
-            mAddressLine2.setText(JsonUtil.getRepresentativeAddressLine2());
-            mWebsite.setText(JsonUtil.getRepresentativeURL());
-            String officialUrl = JsonUtil.getRepresentativePhotoURL();
-            mPhoneNumber = JsonUtil.getRepresentativePhone();
-            mButtonPhoneNumber.setText(mPhoneNumber);
-            //  Log.d("WWD", "officialUrl is " + officialUrl);
-            if (officialUrl.length() == 0) {
-                mOfficialImage.setImageResource(R.drawable.nophoto);
-            } else {
-                Picasso.get().load(officialUrl).into(mOfficialImage);
-            }
+            Picasso.get().load(mOfficialImage).into(mOfficialImageIV);
         }
+
 
     }
 

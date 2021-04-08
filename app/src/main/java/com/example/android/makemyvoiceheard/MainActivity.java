@@ -96,28 +96,28 @@ public class MainActivity extends AppCompatActivity {
     private static String sharedPrefFile = "com.example.android.makemyvoiceheardprefs";
     private final static String DATA_STORED_KEY       = "DATA_STORED";
 
-    private final static String SENATOR_1_NAME_KEY      = "SENATOR_1_NAME";
-    private final static String SENATOR_1_LINE1_KEY     = "SENATOR_1_LINE1";
-    private final static String SENATOR_1_LINE2_KEY     = "SENATOR_1_LINE2";
-    private final static String SENATOR_1_PHOTO_URL_KEY = "SENATOR_1_PHOTO_URL";
-    private final static String SENATOR_1_URL_KEY       = "SENATOR_1_URL";
-    private final static String SENATOR_1_PARTY_KEY     = "SENATOR_1_PARTY";
+    private final static String SENATOR_1_NAME_KEY       = "SENATOR_1_NAME";
+    private final static String SENATOR_1_LINE1_KEY      = "SENATOR_1_LINE1";
+    private final static String SENATOR_1_LINE2_KEY      = "SENATOR_1_LINE2";
+    private final static String SENATOR_1_PHOTO_URL_KEY  = "SENATOR_1_PHOTO_URL";
+    private final static String SENATOR_1_URL_KEY        = "SENATOR_1_URL";
+    private final static String SENATOR_1_PARTY_KEY      = "SENATOR_1_PARTY";
     private final static String SENATOR_1_PHONE_KEY      = "SENATOR_1_PHONE";
 
-    private final static String SENATOR_2_NAME_KEY      = "SENATOR_2_NAME";
-    private final static String SENATOR_2_LINE1_KEY     = "SENATOR_2_LINE1";
-    private final static String SENATOR_2_LINE2_KEY     = "SENATOR_2_LINE2";
-    private final static String SENATOR_2_PHOTO_URL_KEY = "SENATOR_2_PHOTO_URL";
-    private final static String SENATOR_2_URL_KEY       = "SENATOR_2_URL";
-    private final static String SENATOR_2_PARTY_KEY     = "SENATOR_2_PARTY";
+    private final static String SENATOR_2_NAME_KEY       = "SENATOR_2_NAME";
+    private final static String SENATOR_2_LINE1_KEY      = "SENATOR_2_LINE1";
+    private final static String SENATOR_2_LINE2_KEY      = "SENATOR_2_LINE2";
+    private final static String SENATOR_2_PHOTO_URL_KEY  = "SENATOR_2_PHOTO_URL";
+    private final static String SENATOR_2_URL_KEY        = "SENATOR_2_URL";
+    private final static String SENATOR_2_PARTY_KEY      = "SENATOR_2_PARTY";
     private final static String SENATOR_2_PHONE_KEY      = "SENATOR_2_PHONE";
 
-    private final static String REPRESENTATIVE_NAME_KEY      = "REPRESENTATIVE_NAME";
-    private final static String REPRESENTATIVE_LINE1_KEY     = "REPRESENTATIVE_LINE1";
-    private final static String REPRESENTATIVE_LINE2_KEY     = "REPRESENTATIVE_LINE2";
-    private final static String REPRESENTATIVE_PHOTO_URL_KEY = "REPRESENTATIVE_PHOTO_URL";
-    private final static String REPRESENTATIVE_URL_KEY       = "REPRESENTATIVE_URL";
-    private final static String REPRESENTATIVE_PARTY_KEY     = "REPRESENTATIVE_PARTY";
+    private final static String REPRESENTATIVE_NAME_KEY       = "REPRESENTATIVE_NAME";
+    private final static String REPRESENTATIVE_LINE1_KEY      = "REPRESENTATIVE_LINE1";
+    private final static String REPRESENTATIVE_LINE2_KEY      = "REPRESENTATIVE_LINE2";
+    private final static String REPRESENTATIVE_PHOTO_URL_KEY  = "REPRESENTATIVE_PHOTO_URL";
+    private final static String REPRESENTATIVE_URL_KEY        = "REPRESENTATIVE_URL";
+    private final static String REPRESENTATIVE_PARTY_KEY      = "REPRESENTATIVE_PARTY";
     private final static String REPRESENTATIVE_PHONE_KEY      = "REPRESENTATIVE_PHONE";
 
 
@@ -187,15 +187,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
-
-    /* public static final String OFFICIAL_NAME = "OFFICIAL_NAME";
-    public static final String OFFICIAL_PARTY = "OFFICIAL_PARTY";
-    public static final String OFFICIAL_TYPE  = "OFFICIAL_TYPE";
-    public static final String OFFICIAL_ADDRESS_LINE1 = "OFFICIAL_LINE1";
-    public static final String OFFICIAL_ADDRESS_LINE2 = "OFFICIAL_LINE2";
-    public static final String OFFICIAL_URL = "OFFICIAL_URL";
-    public static final String OFFICIAL_PHOTO_URL = "OFFICIAL_PHOTO_URL";
-    public static final String OFFICIAL_PHONE = "OFFICIAL_PHONE"; */
 
     public void onClickSenator1(View view) {
         Intent intent = new Intent(this, DetailActivity.class);
