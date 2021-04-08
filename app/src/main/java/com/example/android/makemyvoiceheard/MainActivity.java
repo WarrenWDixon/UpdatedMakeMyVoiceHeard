@@ -25,6 +25,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -44,9 +45,12 @@ public class MainActivity extends AppCompatActivity {
     private TextView senator1NameTV;
     private TextView senator2NameTV;
     private TextView representativeNameTV;
-    private ImageView senator1Image;
-    private ImageView senator2Image;
-    private ImageView representativeImage;
+    private TextView yourCongressmanLabelTV;
+    private TextView yourSenatorLabelTV;
+    private TextView loadingErrorTV;
+    private ImageView senator1ImageIV;
+    private ImageView senator2ImageIV;
+    private ImageView representativeImageIV;
 
     public static final Integer SENATOR_ONE = 1;
     public static final Integer SENATOR_TWO = 2;
@@ -61,9 +65,6 @@ public class MainActivity extends AppCompatActivity {
     public static final String OFFICIAL_PHOTO_URL = "OFFICIAL_PHOTO_URL";
     public static final String OFFICIAL_PHONE = "OFFICIAL_PHONE";
 
-
-
-    // GPSTracker class
     GPSTracker gps;
 
     // data used for layout files
@@ -123,12 +124,24 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
         String mPermission = Manifest.permission.ACCESS_FINE_LOCATION;
         String mCallPermission = Manifest.permission.CALL_PHONE;
         final int REQUEST_CODE_PERMISSION = 2;
         String encodeAddress;
         String encodedAddress = "";
         mPreferences = getSharedPreferences(sharedPrefFile, MODE_PRIVATE);
+        senator1NameTV         = (TextView) findViewById(R.id.senator_1_name);
+        senator2NameTV         = (TextView) findViewById(R.id.senator_2_name);
+        representativeNameTV   = (TextView) findViewById(R.id.representative_name);
+        yourCongressmanLabelTV = (TextView) findViewById(R.id.congressman_label);
+        yourSenatorLabelTV     = (TextView) findViewById(R.id.your_senators_label);
+        loadingErrorTV         = (TextView) findViewById(R.id.loading_error_message);
+        senator1ImageIV        = (ImageView) findViewById(R.id.senator_1_label);
+        senator2ImageIV        = (ImageView) findViewById(R.id.senator_2_label);
+        representativeImageIV  = (ImageView) findViewById(R.id.representative_image);
+        showLoadingMessage();
 
         try {
             if ((ContextCompat.checkSelfPermission(this, mPermission)
@@ -152,8 +165,8 @@ public class MainActivity extends AppCompatActivity {
             Log.d("WWD", " ---------- latitude is " + latitude);
             Log.d("WWD", " ---------- longitude is " + longitude);
             // \n is for new line
-            Toast.makeText(getApplicationContext(), "Your Location is - \nLat: "
-                    + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
+            /* Toast.makeText(getApplicationContext(), "Your Location is - \nLat: "
+                    + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show(); */
             Geocoder geocoder= new Geocoder(getApplicationContext(), Locale.getDefault());
             try {
                 List<Address> listAddress = geocoder.getFromLocation(latitude, longitude, 1);
@@ -179,13 +192,12 @@ public class MainActivity extends AppCompatActivity {
             gps.showSettingsAlert();
         }
         new CivicQueryTask().execute(encodedAddress);
-        try {
+        /* try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        } */
+
     }
 
     public void onClickSenator1(View view) {
@@ -225,6 +237,121 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    private void storePreferences() {
+        //private SharedPreferences mPreferences;
+        // private String sharedPrefFile = "com.example.android.hellosharedprefs";
+        SharedPreferences.Editor preferencesEditor = mPreferences.edit();
+
+        // store senator 1 data
+        preferencesEditor.putString(SENATOR_1_NAME_KEY,      JsonUtil.getSenator1Name());
+        preferencesEditor.putString(SENATOR_1_LINE1_KEY,     JsonUtil.getSenator1AddressLine1());
+        preferencesEditor.putString(SENATOR_1_LINE2_KEY,     JsonUtil.getSenator1AddressLine2());
+        preferencesEditor.putString(SENATOR_1_URL_KEY,       JsonUtil.getSenator1URL());
+        preferencesEditor.putString(SENATOR_1_PHOTO_URL_KEY, JsonUtil.getSenator1PhotoURL());
+        preferencesEditor.putString(SENATOR_1_PARTY_KEY,     JsonUtil.getSenator1Party());
+        preferencesEditor.putString(SENATOR_1_PHONE_KEY,      JsonUtil.getSenator1Phone());
+
+        // store senator 2 data
+        preferencesEditor.putString(SENATOR_2_NAME_KEY,      JsonUtil.getSenator2Name());
+        preferencesEditor.putString(SENATOR_2_LINE1_KEY,     JsonUtil.getSenator2AddressLine1());
+        preferencesEditor.putString(SENATOR_2_LINE2_KEY,     JsonUtil.getSenator2AddressLine2());
+        preferencesEditor.putString(SENATOR_2_URL_KEY,       JsonUtil.getSenator2URL());
+        preferencesEditor.putString(SENATOR_2_PHOTO_URL_KEY, JsonUtil.getSenator2PhotoURL());
+        preferencesEditor.putString(SENATOR_2_PARTY_KEY,     JsonUtil.getSenator2Party());
+        preferencesEditor.putString(SENATOR_2_PHONE_KEY,      JsonUtil.getSenator2Phone());
+
+        // store representative data
+        preferencesEditor.putString(REPRESENTATIVE_NAME_KEY,      JsonUtil.getRepresentativeName());
+        preferencesEditor.putString(REPRESENTATIVE_LINE1_KEY,     JsonUtil.getRepresentativeAddressLine1());
+        preferencesEditor.putString(REPRESENTATIVE_LINE2_KEY,     JsonUtil.getRepresentativeAddressLine2());
+        preferencesEditor.putString(REPRESENTATIVE_URL_KEY,       JsonUtil.getRepresentativeURL());
+        preferencesEditor.putString(REPRESENTATIVE_PHOTO_URL_KEY, JsonUtil.getRepresentativePhotoURL());
+        preferencesEditor.putString(REPRESENTATIVE_PARTY_KEY,     JsonUtil.getRepresentativeParty());
+        preferencesEditor.putString(REPRESENTATIVE_PHONE_KEY,      JsonUtil.getRepresentativePhone());
+        preferencesEditor.putBoolean(DATA_STORED_KEY, true);
+    }
+
+    private  Boolean isStoredPreferencesAvailable() {
+        Boolean dataAvailable  = mPreferences.getBoolean(DATA_STORED_KEY, false);
+        Log.d("WWD", "in isStoredPreferencesAvailable dataAvailable is " + dataAvailable);
+        return dataAvailable;
+    }
+
+    public void readPreferences() {
+        senator1Name         = mPreferences.getString(SENATOR_1_NAME_KEY, "");
+        senator1URL          = mPreferences.getString(SENATOR_1_URL_KEY, "");
+        senator1PhotoURL     = mPreferences.getString(SENATOR_1_PHOTO_URL_KEY, "");
+        senator1AddressLine1 = mPreferences.getString(SENATOR_1_LINE1_KEY, "");
+        senator1AddressLine2 = mPreferences.getString(SENATOR_1_LINE2_KEY, "");
+        senator1Party        = mPreferences.getString(SENATOR_1_PARTY_KEY, "");
+        senator1Phone        = mPreferences.getString(SENATOR_1_PHONE_KEY, "");
+
+        senator2Name         = mPreferences.getString(SENATOR_2_NAME_KEY, "");
+        senator2URL          = mPreferences.getString(SENATOR_2_URL_KEY, "");
+        senator2PhotoURL     = mPreferences.getString(SENATOR_2_PHOTO_URL_KEY, "");
+        senator2AddressLine1 = mPreferences.getString(SENATOR_2_LINE1_KEY, "");
+        senator2AddressLine2 = mPreferences.getString(SENATOR_2_LINE2_KEY, "");
+        senator2Party        = mPreferences.getString(SENATOR_2_PARTY_KEY, "");
+        senator2Phone        = mPreferences.getString(SENATOR_2_PHONE_KEY, "");
+
+        representativeName          = mPreferences.getString(REPRESENTATIVE_NAME_KEY, "");
+        representativeURL           = mPreferences.getString(REPRESENTATIVE_URL_KEY, "");
+        representativePhotoURL      = mPreferences.getString(REPRESENTATIVE_PHOTO_URL_KEY, "");
+        representativeAddressLine1  = mPreferences.getString(REPRESENTATIVE_LINE1_KEY, "");
+        representativeAddressLine2  = mPreferences.getString(REPRESENTATIVE_LINE2_KEY, "");
+        representativeParty         = mPreferences.getString(REPRESENTATIVE_PARTY_KEY, "");
+        representativePhone         = mPreferences.getString(REPRESENTATIVE_PHONE_KEY, "");
+    }
+
+        /* senator1NameTV       = (TextView) findViewById(R.id.senator_1_name);
+        senator2NameTV       = (TextView) findViewById(R.id.senator_2_name);
+        representativeNameTV = (TextView) findViewById(R.id.representative_name);
+         yourCongressmanLabelTV = (TextView) findViewById(R.id.congressman_label);
+        yourSenatorLabelTV     = (TextView) findViewById(R.id.your_senators_label);
+        senator1Image        = (ImageView) findViewById(R.id.senator_1_label);
+        senator2Image        = (ImageView) findViewById(R.id.senator_2_label);
+        representativeImage  = (ImageView) findViewById(R.id.representative_image); */
+
+    private void turnOffMainViews() {
+        senator1NameTV.setVisibility(View.INVISIBLE);
+        senator2NameTV.setVisibility(View.VISIBLE);
+        representativeNameTV.setVisibility(View.INVISIBLE);
+        senator1ImageIV.setVisibility(View.INVISIBLE);
+        senator2ImageIV.setVisibility(View.INVISIBLE);
+        representativeImageIV.setVisibility(View.INVISIBLE);
+        yourCongressmanLabelTV.setVisibility(View.INVISIBLE);
+        yourSenatorLabelTV.setVisibility(View.INVISIBLE);
+    }
+
+    private void turnOnMainViews() {
+        senator1NameTV.setVisibility(View.VISIBLE);
+        senator2NameTV.setVisibility(View.VISIBLE);
+        representativeNameTV.setVisibility(View.VISIBLE);
+        senator1ImageIV.setVisibility(View.VISIBLE);
+        senator2ImageIV.setVisibility(View.VISIBLE);
+        representativeImageIV.setVisibility(View.VISIBLE);
+        yourCongressmanLabelTV.setVisibility(View.VISIBLE);
+        yourSenatorLabelTV.setVisibility(View.VISIBLE);
+    }
+
+    private void showLoadingMessage() {
+        turnOffMainViews();
+        loadingErrorTV.setText("LOADING PLEASE WAIT");
+        loadingErrorTV.setVisibility(View.VISIBLE);
+    }
+
+    private void showErrorMessage() {
+        turnOffMainViews();
+        loadingErrorTV.setText("NETWORK ERROR CHECK WIFI");
+        loadingErrorTV.setVisibility(View.VISIBLE);
+    }
+
+    private void turnOffLoadingErrorMessage() {
+        loadingErrorTV.setVisibility(View.GONE);
+        turnOnMainViews();
+    }
+
+
     public class CivicQueryTask extends AsyncTask<String, Void, String> {
 
         @Override
@@ -250,13 +377,6 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String civicSearchResults) {
-            senator1NameTV       = (TextView) findViewById(R.id.senator_1_name);
-            senator2NameTV       = (TextView) findViewById(R.id.senator_2_name);
-            representativeNameTV = (TextView) findViewById(R.id.representative_name);
-            senator1Image        = (ImageView) findViewById(R.id.senator_1_label);
-            senator2Image        = (ImageView) findViewById(R.id.senator_2_label);
-            representativeImage  = (ImageView) findViewById(R.id.representative_image);
-
             if (NetworkUtils.getNetworkConnected() && (civicSearchResults != null && !civicSearchResults.equals(""))) {
                 // ---------------------------------------------------------------------
                 // first set the names to the text views
@@ -296,96 +416,32 @@ public class MainActivity extends AppCompatActivity {
                 // ---------------------------------------------------------------------
 
                 if (senator1PhotoURL.length() == 0) {
-                    senator1Image.setImageResource(R.drawable.nophoto);
+                    senator1ImageIV.setImageResource(R.drawable.nophoto);
                 } else {
-                    Picasso.get().load(senator1PhotoURL).into(senator1Image);
+                    Picasso.get().load(senator1PhotoURL).into(senator1ImageIV);
                 }
 
                 if (senator2PhotoURL.length() == 0) {
-                    senator2Image.setImageResource(R.drawable.nophoto);
+                    senator2ImageIV.setImageResource(R.drawable.nophoto);
                 } else {
-                    Picasso.get().load(senator2PhotoURL).into(senator2Image);
+                    Picasso.get().load(senator2PhotoURL).into(senator2ImageIV);
                 }
 
                 if (representativePhotoURL.length() == 0) {
-                    representativeImage.setImageResource(R.drawable.nophoto);
+                    representativeImageIV.setImageResource(R.drawable.nophoto);
                 } else {
-                    Picasso.get().load(representativePhotoURL).into(representativeImage);
+                    Picasso.get().load(representativePhotoURL).into(representativeImageIV);
                 }
+                turnOffLoadingErrorMessage();
                 // store data for future use in case of network failure
                 storePreferences();
             } else if (isStoredPreferencesAvailable()){
                 readPreferences();
                 Log.d("WWD", "read data from preferences");
                 //showErrorMessage();
+            } else {
+                showErrorMessage();
             }
         }
-
-        private void storePreferences() {
-            //private SharedPreferences mPreferences;
-            // private String sharedPrefFile = "com.example.android.hellosharedprefs";
-            SharedPreferences.Editor preferencesEditor = mPreferences.edit();
-
-            // store senator 1 data
-            preferencesEditor.putString(SENATOR_1_NAME_KEY,      JsonUtil.getSenator1Name());
-            preferencesEditor.putString(SENATOR_1_LINE1_KEY,     JsonUtil.getSenator1AddressLine1());
-            preferencesEditor.putString(SENATOR_1_LINE2_KEY,     JsonUtil.getSenator1AddressLine2());
-            preferencesEditor.putString(SENATOR_1_URL_KEY,       JsonUtil.getSenator1URL());
-            preferencesEditor.putString(SENATOR_1_PHOTO_URL_KEY, JsonUtil.getSenator1PhotoURL());
-            preferencesEditor.putString(SENATOR_1_PARTY_KEY,     JsonUtil.getSenator1Party());
-            preferencesEditor.putString(SENATOR_1_PHONE_KEY,      JsonUtil.getSenator1Phone());
-
-            // store senator 2 data
-            preferencesEditor.putString(SENATOR_2_NAME_KEY,      JsonUtil.getSenator2Name());
-            preferencesEditor.putString(SENATOR_2_LINE1_KEY,     JsonUtil.getSenator2AddressLine1());
-            preferencesEditor.putString(SENATOR_2_LINE2_KEY,     JsonUtil.getSenator2AddressLine2());
-            preferencesEditor.putString(SENATOR_2_URL_KEY,       JsonUtil.getSenator2URL());
-            preferencesEditor.putString(SENATOR_2_PHOTO_URL_KEY, JsonUtil.getSenator2PhotoURL());
-            preferencesEditor.putString(SENATOR_2_PARTY_KEY,     JsonUtil.getSenator2Party());
-            preferencesEditor.putString(SENATOR_2_PHONE_KEY,      JsonUtil.getSenator2Phone());
-
-            // store representative data
-            preferencesEditor.putString(REPRESENTATIVE_NAME_KEY,      JsonUtil.getRepresentativeName());
-            preferencesEditor.putString(REPRESENTATIVE_LINE1_KEY,     JsonUtil.getRepresentativeAddressLine1());
-            preferencesEditor.putString(REPRESENTATIVE_LINE2_KEY,     JsonUtil.getRepresentativeAddressLine2());
-            preferencesEditor.putString(REPRESENTATIVE_URL_KEY,       JsonUtil.getRepresentativeURL());
-            preferencesEditor.putString(REPRESENTATIVE_PHOTO_URL_KEY, JsonUtil.getRepresentativePhotoURL());
-            preferencesEditor.putString(REPRESENTATIVE_PARTY_KEY,     JsonUtil.getRepresentativeParty());
-            preferencesEditor.putString(REPRESENTATIVE_PHONE_KEY,      JsonUtil.getRepresentativePhone());
-            preferencesEditor.putBoolean(DATA_STORED_KEY, true);
-        }
-
-        private  Boolean isStoredPreferencesAvailable() {
-            Boolean dataAvailable  = mPreferences.getBoolean(DATA_STORED_KEY, false);
-            Log.d("WWD", "in isStoredPreferencesAvailable dataAvailable is " + dataAvailable);
-            return dataAvailable;
-        }
-
-        public void readPreferences() {
-            senator1Name         = mPreferences.getString(SENATOR_1_NAME_KEY, "");
-            senator1URL          = mPreferences.getString(SENATOR_1_URL_KEY, "");
-            senator1PhotoURL     = mPreferences.getString(SENATOR_1_PHOTO_URL_KEY, "");
-            senator1AddressLine1 = mPreferences.getString(SENATOR_1_LINE1_KEY, "");
-            senator1AddressLine2 = mPreferences.getString(SENATOR_1_LINE2_KEY, "");
-            senator1Party        = mPreferences.getString(SENATOR_1_PARTY_KEY, "");
-            senator1Phone        = mPreferences.getString(SENATOR_1_PHONE_KEY, "");
-
-            senator2Name         = mPreferences.getString(SENATOR_2_NAME_KEY, "");
-            senator2URL          = mPreferences.getString(SENATOR_2_URL_KEY, "");
-            senator2PhotoURL     = mPreferences.getString(SENATOR_2_PHOTO_URL_KEY, "");
-            senator2AddressLine1 = mPreferences.getString(SENATOR_2_LINE1_KEY, "");
-            senator2AddressLine2 = mPreferences.getString(SENATOR_2_LINE2_KEY, "");
-            senator2Party        = mPreferences.getString(SENATOR_2_PARTY_KEY, "");
-            senator2Phone        = mPreferences.getString(SENATOR_2_PHONE_KEY, "");
-
-            representativeName          = mPreferences.getString(REPRESENTATIVE_NAME_KEY, "");
-            representativeURL           = mPreferences.getString(REPRESENTATIVE_URL_KEY, "");
-            representativePhotoURL      = mPreferences.getString(REPRESENTATIVE_PHOTO_URL_KEY, "");
-            representativeAddressLine1  = mPreferences.getString(REPRESENTATIVE_LINE1_KEY, "");
-            representativeAddressLine2  = mPreferences.getString(REPRESENTATIVE_LINE2_KEY, "");
-            representativeParty         = mPreferences.getString(REPRESENTATIVE_PARTY_KEY, "");
-            representativePhone         = mPreferences.getString(REPRESENTATIVE_PHONE_KEY, "");
-        }
-
     }
 }
