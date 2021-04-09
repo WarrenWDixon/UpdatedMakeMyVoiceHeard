@@ -18,6 +18,7 @@ package com.example.android.makemyvoiceheard;
 import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -126,6 +127,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         String mPermission = Manifest.permission.ACCESS_FINE_LOCATION;
         String mCallPermission = Manifest.permission.CALL_PHONE;
         final int REQUEST_CODE_PERMISSION = 2;

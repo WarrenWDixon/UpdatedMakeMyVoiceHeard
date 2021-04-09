@@ -1,6 +1,7 @@
 package com.example.android.makemyvoiceheard;
 
 import android.Manifest;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -45,6 +46,7 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //  Log.d("WWD", "in Detail Activity onCreate");
         setContentView(R.layout.activity_detail);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         Intent intent  = getIntent();
         mOfficialLabel = intent.getStringExtra(MainActivity.OFFICIAL_TYPE);
