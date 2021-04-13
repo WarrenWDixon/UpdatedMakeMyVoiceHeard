@@ -16,13 +16,13 @@ public interface OfficialsDAO {
     LiveData<List<Officials>> getAllOfficials();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertMovie(Officials officials);
+    void insertOfficials(Officials officials);
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    void updateMovie(Officials officials);
+    void updateOfficials(Officials officials);
 
     @Delete
-    void deleteMovie(Officials officials);
+    void deleteOfficials(Officials officials);
 
     @Query("DELETE FROM Officials")
     public void nukeTable();

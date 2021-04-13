@@ -34,7 +34,7 @@ public class Officials {
     @PrimaryKey(autoGenerate = true)
     @NonNull
     @ColumnInfo(name="officialsID")
-    private String mOfficialsID;
+    private Integer mOfficialsID;
 
     @ColumnInfo(name="senator1Name")
     private String mSenator1Name;
@@ -127,6 +127,15 @@ public class Officials {
         mRepresentativeAddressLine2 = representativeAddressLine2;
         mRepresentativeParty = representativeParty;
         mRepresentativePhone = representativePhone;
+    }
+
+
+    public Integer getOfficialsID() {
+        return mOfficialsID;
+    }
+
+    public void setOfficialsID(Integer officialsID) {
+        mOfficialsID = officialsID;
     }
 
     public String getSenator1Name() {
