@@ -46,6 +46,10 @@
         <meta-data
             android:name="com.example.android.makemyvoiceheard.API_KEY"
             android:value="AIzaSyD_7MEtxj3fSEG6eADD5W2tReHTfr6buY4"/>
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-6561517042866760~1027620330"/>
+
     </application>
 
 </manifest>

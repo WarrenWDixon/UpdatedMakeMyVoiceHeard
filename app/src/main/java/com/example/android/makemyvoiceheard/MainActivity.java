@@ -33,6 +33,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -42,6 +45,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
+    private AdView adView;
 
     private TextView senator1NameTV;
     private TextView senator2NameTV;
@@ -144,6 +148,10 @@ public class MainActivity extends AppCompatActivity {
         senator2ImageIV        = (ImageView) findViewById(R.id.senator_2_label);
         representativeImageIV  = (ImageView) findViewById(R.id.representative_image);
         showLoadingMessage();
+        adView = (AdView) findViewById(R.id.adView);
+        MobileAds.initialize(this, "ca-app-pub-6561517042866760~1027620330");
+        AdRequest request = new AdRequest.Builder().build();
+        adView.loadAd(request);
 
         try {
             if ((ContextCompat.checkSelfPermission(this, mPermission)
