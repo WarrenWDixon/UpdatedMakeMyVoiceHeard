@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
     private String representativeParty;
     private String representativePhone;
 
-    //OfficialsViewModel mViewModel;
+    OfficialsViewModel mViewModel;
 
     // shared preferences member variables
     private static SharedPreferences mPreferences;
@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
         String encodeAddress;
         String encodedAddress = "";
         Log.d("WWD", "in main activity onCreate");
-        //mViewModel = ViewModelProviders.of(MainActivity.this).get(OfficialsViewModel.class);
+        mViewModel = ViewModelProviders.of(MainActivity.this).get(OfficialsViewModel.class);
         mPreferences = getSharedPreferences(sharedPrefFile, MODE_PRIVATE);
         senator1NameTV         = (TextView) findViewById(R.id.senator_1_name);
         senator2NameTV         = (TextView) findViewById(R.id.senator_2_name);
@@ -155,10 +155,10 @@ public class MainActivity extends AppCompatActivity {
         representativeImageIV  = (ImageView) findViewById(R.id.representative_image);
         Log.d("WWD", "in main activity onCreate call showLoadingMessage");
         showLoadingMessage();
-        /* adView = (AdView) findViewById(R.id.adView);
+        adView = (AdView) findViewById(R.id.adView);
         MobileAds.initialize(this, "ca-app-pub-6561517042866760~1027620330");
         AdRequest request = new AdRequest.Builder().build();
-        adView.loadAd(request); */
+        adView.loadAd(request);
 
         try {
             if ((ContextCompat.checkSelfPermission(this, mPermission)
@@ -262,7 +262,7 @@ public class MainActivity extends AppCompatActivity {
                 representativeName, representativeURL, representativePhotoURL, representativeAddressLine1,
                 representativeAddressLine2, representativeParty, representativePhone);
         Log.d("WWD", "in storeOfficialsInDatabase");
-        //mViewModel.insert(officials);
+        mViewModel.insert(officials);
     }
 
     private void storePreferences() {
@@ -297,7 +297,7 @@ public class MainActivity extends AppCompatActivity {
         preferencesEditor.putString(REPRESENTATIVE_PARTY_KEY,     JsonUtil.getRepresentativeParty());
         preferencesEditor.putString(REPRESENTATIVE_PHONE_KEY,      JsonUtil.getRepresentativePhone());
         preferencesEditor.putBoolean(DATA_STORED_KEY, true);
-    }
+    } 
 
     private  Boolean isStoredPreferencesAvailable() {
         Boolean dataAvailable  = mPreferences.getBoolean(DATA_STORED_KEY, false);
@@ -486,12 +486,12 @@ public class MainActivity extends AppCompatActivity {
 
                 //initializeUI();
                 // store data for future use in case of network failure
-                storePreferences();
-                //storeOfficialsInDatabase();
+                //storePreferences();
+                storeOfficialsInDatabase();
             } else if (isStoredPreferencesAvailable()){
                 readPreferences();
 
-                /* mViewModel.getAllMovies().observe(MainActivity.this, new Observer<List<Officials>>() {
+                mViewModel.getAllMovies().observe(MainActivity.this, new Observer<List<Officials>>() {
                     @Override
                     public void onChanged(List<Officials> officialsList) {
                         int numOfficials = officialsList.size();
@@ -524,7 +524,7 @@ public class MainActivity extends AppCompatActivity {
                         initializeUI();
 
                     }
-                }); */
+                });
                 Log.d("WWD", "read data from database");
                 //showErrorMessage();
             } else {
