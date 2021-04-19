@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
     private String representativeParty;
     private String representativePhone;
 
-    OfficialsViewModel mViewModel;
+    //OfficialsViewModel mViewModel;
 
     // shared preferences member variables
     private static SharedPreferences mPreferences;
@@ -141,7 +141,8 @@ public class MainActivity extends AppCompatActivity {
         final int REQUEST_CODE_PERMISSION = 2;
         String encodeAddress;
         String encodedAddress = "";
-        mViewModel = ViewModelProviders.of(MainActivity.this).get(OfficialsViewModel.class);
+        Log.d("WWD", "in main activity onCreate");
+        //mViewModel = ViewModelProviders.of(MainActivity.this).get(OfficialsViewModel.class);
         mPreferences = getSharedPreferences(sharedPrefFile, MODE_PRIVATE);
         senator1NameTV         = (TextView) findViewById(R.id.senator_1_name);
         senator2NameTV         = (TextView) findViewById(R.id.senator_2_name);
@@ -152,11 +153,12 @@ public class MainActivity extends AppCompatActivity {
         senator1ImageIV        = (ImageView) findViewById(R.id.senator_1_label);
         senator2ImageIV        = (ImageView) findViewById(R.id.senator_2_label);
         representativeImageIV  = (ImageView) findViewById(R.id.representative_image);
+        Log.d("WWD", "in main activity onCreate call showLoadingMessage");
         showLoadingMessage();
-        adView = (AdView) findViewById(R.id.adView);
+        /* adView = (AdView) findViewById(R.id.adView);
         MobileAds.initialize(this, "ca-app-pub-6561517042866760~1027620330");
         AdRequest request = new AdRequest.Builder().build();
-        adView.loadAd(request);
+        adView.loadAd(request); */
 
         try {
             if ((ContextCompat.checkSelfPermission(this, mPermission)
@@ -259,10 +261,11 @@ public class MainActivity extends AppCompatActivity {
                 senator2AddressLine2, senator2Party, senator2Phone,
                 representativeName, representativeURL, representativePhotoURL, representativeAddressLine1,
                 representativeAddressLine2, representativeParty, representativePhone);
-        mViewModel.insert(officials);
+        Log.d("WWD", "in storeOfficialsInDatabase");
+        //mViewModel.insert(officials);
     }
 
-    /* private void storePreferences() {
+    private void storePreferences() {
         //private SharedPreferences mPreferences;
         // private String sharedPrefFile = "com.example.android.hellosharedprefs";
         SharedPreferences.Editor preferencesEditor = mPreferences.edit();
@@ -294,7 +297,7 @@ public class MainActivity extends AppCompatActivity {
         preferencesEditor.putString(REPRESENTATIVE_PARTY_KEY,     JsonUtil.getRepresentativeParty());
         preferencesEditor.putString(REPRESENTATIVE_PHONE_KEY,      JsonUtil.getRepresentativePhone());
         preferencesEditor.putBoolean(DATA_STORED_KEY, true);
-    } */
+    }
 
     private  Boolean isStoredPreferencesAvailable() {
         Boolean dataAvailable  = mPreferences.getBoolean(DATA_STORED_KEY, false);
@@ -302,7 +305,7 @@ public class MainActivity extends AppCompatActivity {
         return dataAvailable;
     }
 
-    /* public void readPreferences() {
+    public void readPreferences() {
         senator1Name         = mPreferences.getString(SENATOR_1_NAME_KEY, "");
         senator1URL          = mPreferences.getString(SENATOR_1_URL_KEY, "");
         senator1PhotoURL     = mPreferences.getString(SENATOR_1_PHOTO_URL_KEY, "");
@@ -326,7 +329,7 @@ public class MainActivity extends AppCompatActivity {
         representativeAddressLine2  = mPreferences.getString(REPRESENTATIVE_LINE2_KEY, "");
         representativeParty         = mPreferences.getString(REPRESENTATIVE_PARTY_KEY, "");
         representativePhone         = mPreferences.getString(REPRESENTATIVE_PHONE_KEY, "");
-    } */
+    }
 
     private void turnOffMainViews() {
         senator1NameTV.setVisibility(View.INVISIBLE);
@@ -368,6 +371,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void initializeUI() {
+        Log.d("WWD", "in initializeUI");
         senator1NameTV.setText(senator1Name);
         senator2NameTV.setText(senator2Name);
         representativeNameTV.setText(representativeName);
@@ -429,6 +433,7 @@ public class MainActivity extends AppCompatActivity {
                 JsonUtil.parseCivicsJson(civicSearchResults);
 
                 senator1Name         = JsonUtil.getSenator1Name();
+                Log.d("WWD", "in onPostExecute read senator 1 name" + senator1Name);
                 senator1URL          = JsonUtil.getSenator1URL();
                 senator1PhotoURL     = JsonUtil.getSenator1PhotoURL();
                 senator1AddressLine1 = JsonUtil.getSenator1AddressLine1();
@@ -452,14 +457,41 @@ public class MainActivity extends AppCompatActivity {
                 representativeParty         = JsonUtil.getRepresentativeParty();
                 representativePhone         = JsonUtil.getRepresentativePhone();
 
-                initializeUI();
-                // store data for future use in case of network failure
-                //storePreferences();
-                storeOfficialsInDatabase();
-            } else if (isStoredPreferencesAvailable()){
-                //readPreferences();
+                senator1NameTV.setText(senator1Name);
+                senator2NameTV.setText(senator2Name);
+                representativeNameTV.setText(representativeName);
 
-                mViewModel.getAllMovies().observe(MainActivity.this, new Observer<List<Officials>>() {
+                // ---------------------------------------------------------------------
+                // next set the images using picasso
+                // ---------------------------------------------------------------------
+
+                if (senator1PhotoURL.length() == 0) {
+                    senator1ImageIV.setImageResource(R.drawable.nophoto);
+                } else {
+                    Picasso.get().load(senator1PhotoURL).into(senator1ImageIV);
+                }
+
+                if (senator2PhotoURL.length() == 0) {
+                    senator2ImageIV.setImageResource(R.drawable.nophoto);
+                } else {
+                    Picasso.get().load(senator2PhotoURL).into(senator2ImageIV);
+                }
+
+                if (representativePhotoURL.length() == 0) {
+                    representativeImageIV.setImageResource(R.drawable.nophoto);
+                } else {
+                    Picasso.get().load(representativePhotoURL).into(representativeImageIV);
+                }
+                turnOffLoadingErrorMessage();
+
+                //initializeUI();
+                // store data for future use in case of network failure
+                storePreferences();
+                //storeOfficialsInDatabase();
+            } else if (isStoredPreferencesAvailable()){
+                readPreferences();
+
+                /* mViewModel.getAllMovies().observe(MainActivity.this, new Observer<List<Officials>>() {
                     @Override
                     public void onChanged(List<Officials> officialsList) {
                         int numOfficials = officialsList.size();
@@ -492,7 +524,7 @@ public class MainActivity extends AppCompatActivity {
                         initializeUI();
 
                     }
-                });
+                }); */
                 Log.d("WWD", "read data from database");
                 //showErrorMessage();
             } else {

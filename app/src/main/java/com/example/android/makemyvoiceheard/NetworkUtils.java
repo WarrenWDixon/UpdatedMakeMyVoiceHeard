@@ -36,7 +36,8 @@ public class NetworkUtils {
         downloadDataSuccess = false;
         Log.d("WWD", " ---------------- getResponseFromHttpUrl address is " + address);
         //String urlString = CIVICS_URL + CIVICS_URL_PART2;
-        String urlString = API_BASE_STRING + address + API_PARAMETERS_STRING;
+        //String urlString = API_BASE_STRING + address + API_PARAMETERS_STRING;
+        String urlString = HTTP_STRING;
         //urlString += ACCEPT;
         Log.d("WWD", "the urlstring is " + urlString);
         Log.d("WWD", " the original HTTP_STRING is " + HTTP_STRING);

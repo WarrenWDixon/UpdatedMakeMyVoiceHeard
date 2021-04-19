@@ -33,6 +33,7 @@ public class OfficialsViewModel extends AndroidViewModel {
     // create wrapper insert() method that calls Repository's insert() method,
     // implementation of insert() is hidden from UI
     public void insert(Officials officials) {
+
         mRepository.insert(officials);
     }
 }
