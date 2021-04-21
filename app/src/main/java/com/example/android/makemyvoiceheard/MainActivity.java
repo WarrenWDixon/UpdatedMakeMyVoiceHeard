@@ -297,7 +297,7 @@ public class MainActivity extends AppCompatActivity {
         preferencesEditor.putString(REPRESENTATIVE_PARTY_KEY,     JsonUtil.getRepresentativeParty());
         preferencesEditor.putString(REPRESENTATIVE_PHONE_KEY,      JsonUtil.getRepresentativePhone());
         preferencesEditor.putBoolean(DATA_STORED_KEY, true);
-    } 
+    }
 
     private  Boolean isStoredPreferencesAvailable() {
         Boolean dataAvailable  = mPreferences.getBoolean(DATA_STORED_KEY, false);
