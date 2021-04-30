@@ -15,6 +15,7 @@ public class OfficialsViewModel extends AndroidViewModel {
 
     // private LiveData member variable to cache list of words
     private LiveData<List<Officials>> mAllOfficials;
+    //private List<Officials> mAllOfficials;
 
     /**
      * Creates a {@code AndroidViewModelFactory}

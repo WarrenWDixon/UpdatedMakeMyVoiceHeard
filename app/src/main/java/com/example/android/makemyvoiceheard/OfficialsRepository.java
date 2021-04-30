@@ -20,6 +20,7 @@ public class OfficialsRepository {
 
     // wrapper method called getAllMovies() that returns the cached words as LiveData
     // Room executes on a separate thread. Observed LiveData notifies the observer when data changes
+    //List<Officials> getAllOfficials() { return mAllOfficials;}
     LiveData<List<Officials>> getAllOfficials() { return mAllOfficials;}
 
     // wrapper for insert method, must use AsyncTask to call insert() on non-UI thread or app will crash

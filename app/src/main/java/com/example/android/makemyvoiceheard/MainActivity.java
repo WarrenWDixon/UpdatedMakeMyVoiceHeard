@@ -102,7 +102,6 @@ public class MainActivity extends AppCompatActivity {
     OfficialsViewModel mViewModel;
 
     // shared preferences member variables
-    private static SharedPreferences mPreferences;
     private static String sharedPrefFile = "com.example.android.makemyvoiceheardprefs";
     private final static String DATA_STORED_KEY       = "DATA_STORED";
 
@@ -130,6 +129,7 @@ public class MainActivity extends AppCompatActivity {
     private final static String REPRESENTATIVE_PARTY_KEY      = "REPRESENTATIVE_PARTY";
     private final static String REPRESENTATIVE_PHONE_KEY      = "REPRESENTATIVE_PHONE";
 
+        // this is a test comment
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,7 +143,6 @@ public class MainActivity extends AppCompatActivity {
         String encodedAddress = "";
         Log.d("WWD", "in main activity onCreate");
         mViewModel = ViewModelProviders.of(MainActivity.this).get(OfficialsViewModel.class);
-        mPreferences = getSharedPreferences(sharedPrefFile, MODE_PRIVATE);
         senator1NameTV         = (TextView) findViewById(R.id.senator_1_name);
         senator2NameTV         = (TextView) findViewById(R.id.senator_2_name);
         representativeNameTV   = (TextView) findViewById(R.id.representative_name);
@@ -265,72 +264,6 @@ public class MainActivity extends AppCompatActivity {
         mViewModel.insert(officials);
     }
 
-    private void storePreferences() {
-        //private SharedPreferences mPreferences;
-        // private String sharedPrefFile = "com.example.android.hellosharedprefs";
-        SharedPreferences.Editor preferencesEditor = mPreferences.edit();
-
-        // store senator 1 data
-        preferencesEditor.putString(SENATOR_1_NAME_KEY,      JsonUtil.getSenator1Name());
-        preferencesEditor.putString(SENATOR_1_LINE1_KEY,     JsonUtil.getSenator1AddressLine1());
-        preferencesEditor.putString(SENATOR_1_LINE2_KEY,     JsonUtil.getSenator1AddressLine2());
-        preferencesEditor.putString(SENATOR_1_URL_KEY,       JsonUtil.getSenator1URL());
-        preferencesEditor.putString(SENATOR_1_PHOTO_URL_KEY, JsonUtil.getSenator1PhotoURL());
-        preferencesEditor.putString(SENATOR_1_PARTY_KEY,     JsonUtil.getSenator1Party());
-        preferencesEditor.putString(SENATOR_1_PHONE_KEY,      JsonUtil.getSenator1Phone());
-
-        // store senator 2 data
-        preferencesEditor.putString(SENATOR_2_NAME_KEY,      JsonUtil.getSenator2Name());
-        preferencesEditor.putString(SENATOR_2_LINE1_KEY,     JsonUtil.getSenator2AddressLine1());
-        preferencesEditor.putString(SENATOR_2_LINE2_KEY,     JsonUtil.getSenator2AddressLine2());
-        preferencesEditor.putString(SENATOR_2_URL_KEY,       JsonUtil.getSenator2URL());
-        preferencesEditor.putString(SENATOR_2_PHOTO_URL_KEY, JsonUtil.getSenator2PhotoURL());
-        preferencesEditor.putString(SENATOR_2_PARTY_KEY,     JsonUtil.getSenator2Party());
-        preferencesEditor.putString(SENATOR_2_PHONE_KEY,      JsonUtil.getSenator2Phone());
-
-        // store representative data
-        preferencesEditor.putString(REPRESENTATIVE_NAME_KEY,      JsonUtil.getRepresentativeName());
-        preferencesEditor.putString(REPRESENTATIVE_LINE1_KEY,     JsonUtil.getRepresentativeAddressLine1());
-        preferencesEditor.putString(REPRESENTATIVE_LINE2_KEY,     JsonUtil.getRepresentativeAddressLine2());
-        preferencesEditor.putString(REPRESENTATIVE_URL_KEY,       JsonUtil.getRepresentativeURL());
-        preferencesEditor.putString(REPRESENTATIVE_PHOTO_URL_KEY, JsonUtil.getRepresentativePhotoURL());
-        preferencesEditor.putString(REPRESENTATIVE_PARTY_KEY,     JsonUtil.getRepresentativeParty());
-        preferencesEditor.putString(REPRESENTATIVE_PHONE_KEY,      JsonUtil.getRepresentativePhone());
-        preferencesEditor.putBoolean(DATA_STORED_KEY, true);
-    }
-
-    private  Boolean isStoredPreferencesAvailable() {
-        Boolean dataAvailable  = mPreferences.getBoolean(DATA_STORED_KEY, false);
-        Log.d("WWD", "in isStoredPreferencesAvailable dataAvailable is " + dataAvailable);
-        return dataAvailable;
-    }
-
-    public void readPreferences() {
-        senator1Name         = mPreferences.getString(SENATOR_1_NAME_KEY, "");
-        senator1URL          = mPreferences.getString(SENATOR_1_URL_KEY, "");
-        senator1PhotoURL     = mPreferences.getString(SENATOR_1_PHOTO_URL_KEY, "");
-        senator1AddressLine1 = mPreferences.getString(SENATOR_1_LINE1_KEY, "");
-        senator1AddressLine2 = mPreferences.getString(SENATOR_1_LINE2_KEY, "");
-        senator1Party        = mPreferences.getString(SENATOR_1_PARTY_KEY, "");
-        senator1Phone        = mPreferences.getString(SENATOR_1_PHONE_KEY, "");
-
-        senator2Name         = mPreferences.getString(SENATOR_2_NAME_KEY, "");
-        senator2URL          = mPreferences.getString(SENATOR_2_URL_KEY, "");
-        senator2PhotoURL     = mPreferences.getString(SENATOR_2_PHOTO_URL_KEY, "");
-        senator2AddressLine1 = mPreferences.getString(SENATOR_2_LINE1_KEY, "");
-        senator2AddressLine2 = mPreferences.getString(SENATOR_2_LINE2_KEY, "");
-        senator2Party        = mPreferences.getString(SENATOR_2_PARTY_KEY, "");
-        senator2Phone        = mPreferences.getString(SENATOR_2_PHONE_KEY, "");
-
-        representativeName          = mPreferences.getString(REPRESENTATIVE_NAME_KEY, "");
-        representativeURL           = mPreferences.getString(REPRESENTATIVE_URL_KEY, "");
-        representativePhotoURL      = mPreferences.getString(REPRESENTATIVE_PHOTO_URL_KEY, "");
-        representativeAddressLine1  = mPreferences.getString(REPRESENTATIVE_LINE1_KEY, "");
-        representativeAddressLine2  = mPreferences.getString(REPRESENTATIVE_LINE2_KEY, "");
-        representativeParty         = mPreferences.getString(REPRESENTATIVE_PARTY_KEY, "");
-        representativePhone         = mPreferences.getString(REPRESENTATIVE_PHONE_KEY, "");
-    }
-
     private void turnOffMainViews() {
         senator1NameTV.setVisibility(View.INVISIBLE);
         senator2NameTV.setVisibility(View.VISIBLE);
@@ -426,6 +359,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String civicSearchResults) {
+            Log.d("WWD", "in onPostExecute");
             if (NetworkUtils.getNetworkConnected() && (civicSearchResults != null && !civicSearchResults.equals(""))) {
                 // ---------------------------------------------------------------------
                 // first set the names to the text views
@@ -488,8 +422,7 @@ public class MainActivity extends AppCompatActivity {
                 // store data for future use in case of network failure
                 //storePreferences();
                 storeOfficialsInDatabase();
-            } else if (isStoredPreferencesAvailable()){
-                readPreferences();
+            } else {
 
                 mViewModel.getAllMovies().observe(MainActivity.this, new Observer<List<Officials>>() {
                     @Override
@@ -521,14 +454,16 @@ public class MainActivity extends AppCompatActivity {
                         representativeParty         = officialsList.get(0).getRepresentativeParty();
                         representativePhone         = officialsList.get(0).getRepresentativePhone();
 
-                        initializeUI();
+                        if (senator1Name.length() > 0) {
+                            initializeUI();
+                        } else {
+                            showErrorMessage();
+                        }
 
                     }
                 });
                 Log.d("WWD", "read data from database");
                 //showErrorMessage();
-            } else {
-                showErrorMessage();
             }
         }
     }

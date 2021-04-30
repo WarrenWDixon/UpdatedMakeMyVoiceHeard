@@ -35,6 +35,11 @@ class JsonUtil {
     private static List<String> officeNameArray;
     private static List<JSONArray> officialIndexJSONArray;
 
+    private static String senator1Name = "";
+    private static String senator2Name = "";
+    private static String representativeName = "";
+
+
     //member variables for storing data in shared preferences
     private static SharedPreferences mPreferences;
     private static String sharedPrefFile = "com.example.android.makemyvoiceheardprefs";
