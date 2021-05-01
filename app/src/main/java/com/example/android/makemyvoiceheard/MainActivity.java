@@ -16,8 +16,11 @@
 package com.example.android.makemyvoiceheard;
 
 import android.Manifest;
+import android.appwidget.AppWidgetManager;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
@@ -32,6 +35,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RemoteViews;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -188,10 +192,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-
-
-
-                adView = (AdView) findViewById(R.id.adView);
+        adView = (AdView) findViewById(R.id.adView);
         MobileAds.initialize(this, "ca-app-pub-6561517042866760~1027620330");
         AdRequest request = new AdRequest.Builder().build();
         adView.loadAd(request);
@@ -250,6 +251,18 @@ public class MainActivity extends AppCompatActivity {
         } catch (InterruptedException e) {
             e.printStackTrace();
         } */
+
+    }
+
+    private void updateAppWidget() {
+        Context context = this;
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.make_my_voice_heard_widget);
+        ComponentName thisWidget = new ComponentName(context, MakeMyVoiceHeardWidget.class);
+        remoteViews.setTextViewText(R.id.widget_senator1, senator1Name);
+        remoteViews.setTextViewText(R.id.widget_senator2, senator2Name);
+        remoteViews.setTextViewText(R.id.widget_representative, representativeName);
+        appWidgetManager.updateAppWidget(thisWidget,remoteViews);
 
     }
 
@@ -463,6 +476,7 @@ public class MainActivity extends AppCompatActivity {
                 // store data for future use in case of network failure
                 //storePreferences();
                 storeOfficialsInDatabase();
+                updateAppWidget();
             } else {
 
                 mViewModel.getAllMovies().observe(MainActivity.this, new Observer<List<Officials>>() {
