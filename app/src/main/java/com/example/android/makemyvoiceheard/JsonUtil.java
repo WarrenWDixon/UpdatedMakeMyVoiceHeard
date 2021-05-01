@@ -17,9 +17,9 @@ class JsonUtil {
     private static JSONArray jsonOffices;
     private static JSONArray jsonOfficials;
     private static JSONArray official1AddressArray;
-    private static Integer senator1Index;
-    private static Integer senator2Index;
-    private static Integer representativeIndex;
+    private static Integer senator1Index = -1;
+    private static Integer senator2Index = -1;
+    private static Integer representativeIndex = -1;
     private static List<JSONObject> officialJSONArray;
     private static List<JSONArray> addressJSONArray;
     private static List<JSONArray> phoneJSONArray;

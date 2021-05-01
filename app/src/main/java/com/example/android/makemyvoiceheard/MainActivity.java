@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String OFFICIAL_PHONE = "OFFICIAL_PHONE";
 
     GPSTracker gps;
-
+    private static String name1;
     // data used for layout files
     private String senator1Name;
     private String senator1URL;
@@ -154,7 +154,44 @@ public class MainActivity extends AppCompatActivity {
         representativeImageIV  = (ImageView) findViewById(R.id.representative_image);
         Log.d("WWD", "in main activity onCreate call showLoadingMessage");
         showLoadingMessage();
-        adView = (AdView) findViewById(R.id.adView);
+        mViewModel.getAllMovies().observe(MainActivity.this, new Observer<List<Officials>>() {
+                    @Override
+                    public void onChanged(List<Officials> officialsList) {
+                        int numOfficials = officialsList.size();
+                        int i;
+                        //JsonUtil.updateFavoriteMovies(movies);
+                        senator1Name = officialsList.get(0).getSenator1Name();
+                        senator1URL = officialsList.get(0).getSenator1URL();
+                        senator1PhotoURL = officialsList.get(0).getSenator1PhotoURL();
+                        senator1AddressLine1 = officialsList.get(0).getSenator1AddressLine1();
+                        senator1AddressLine2 = officialsList.get(0).getSenator1AddressLine2();
+                        senator1Party = officialsList.get(0).getSenator1Party();
+                        senator1Phone = officialsList.get(0).getSenator1Phone();
+
+                        senator2Name = officialsList.get(0).getSenator2Name();
+                        senator2URL = officialsList.get(0).getSenator1URL();
+                        senator2PhotoURL = officialsList.get(0).getSenator2PhotoURL();
+                        senator2AddressLine1 = officialsList.get(0).getSenator2AddressLine1();
+                        senator2AddressLine2 = officialsList.get(0).getSenator2AddressLine2();
+                        senator2Party = officialsList.get(0).getSenator2Party();
+                        senator2Phone = officialsList.get(0).getSenator2Phone();
+
+                        representativeName = officialsList.get(0).getRepresentativeName();
+                        representativeURL = officialsList.get(0).getRepresentativeURL();
+                        representativePhotoURL = officialsList.get(0).getRepresentativePhotoURL();
+                        representativeAddressLine1 = officialsList.get(0).getRepresentativeAddressLine1();
+                        representativeAddressLine2 = officialsList.get(0).getRepresentativeAddressLine2();
+                        representativeParty = officialsList.get(0).getRepresentativeParty();
+                        representativePhone = officialsList.get(0).getRepresentativePhone();
+
+                        Log.d("WWD", " ------------------ senator1Name length is " + senator1Name.length());
+                    }
+                });
+
+
+
+
+                adView = (AdView) findViewById(R.id.adView);
         MobileAds.initialize(this, "ca-app-pub-6561517042866760~1027620330");
         AdRequest request = new AdRequest.Builder().build();
         adView.loadAd(request);
@@ -301,6 +338,10 @@ public class MainActivity extends AppCompatActivity {
     private void turnOffLoadingErrorMessage() {
         loadingErrorTV.setVisibility(View.GONE);
         turnOnMainViews();
+    }
+
+    static public String returnSenator1Name() {
+        return "Ted cruz";
     }
 
     public void initializeUI() {
