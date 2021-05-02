@@ -32,6 +32,7 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -146,6 +147,7 @@ public class MainActivity extends AppCompatActivity {
         String encodeAddress;
         String encodedAddress = "";
         Log.d("WWD", "in main activity onCreate");
+        setSupportActionBar((Toolbar) findViewById(R.id.my_toolbar));
         mViewModel = ViewModelProviders.of(MainActivity.this).get(OfficialsViewModel.class);
         senator1NameTV         = (TextView) findViewById(R.id.senator_1_name);
         senator2NameTV         = (TextView) findViewById(R.id.senator_2_name);

@@ -10,6 +10,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -47,6 +48,9 @@ public class DetailActivity extends AppCompatActivity {
         //  Log.d("WWD", "in Detail Activity onCreate");
         setContentView(R.layout.activity_detail);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        setSupportActionBar((Toolbar) findViewById(R.id.my_detail_toolbar));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         Intent intent  = getIntent();
         mOfficialLabel = intent.getStringExtra(MainActivity.OFFICIAL_TYPE);
