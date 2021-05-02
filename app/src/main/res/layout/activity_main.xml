@@ -23,9 +23,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Your Congressional Representive1"
         android:textColor="@color/white"
         android:textSize="24sp"
+        android:text="@string/your_representative"
         android:layout_marginTop="32dp"
         android:layout_marginBottom="24dp"
         android:textStyle="bold" />
@@ -37,6 +37,7 @@
         android:layout_marginTop="8dp"
         android:scaleType="centerCrop"
         android:onClick="onClickRepresentative"
+        android:contentDescription="@string/representative_photo"
         android:layout_gravity="center" />
     <TextView
         android:id="@+id/loading_error_message"
@@ -65,7 +66,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="32dp"
-        android:text="Your Senators"
+        android:text="@string/your_senators"
         android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -82,6 +83,7 @@
             android:layout_marginStart="50dp"
             android:layout_marginEnd="100dp"
             android:onClick="onClickSenator1"
+            android:contentDescription="@string/first_senator_photo"
             android:scaleType="centerCrop" />
 
         <ImageView
@@ -90,6 +92,7 @@
             android:layout_height="150dp"
             android:layout_marginEnd="100dp"
             android:onClick="onClickSenator2"
+            android:contentDescription="@string/second_senator_photo"
             android:scaleType="centerCrop" />
     </LinearLayout>
 
