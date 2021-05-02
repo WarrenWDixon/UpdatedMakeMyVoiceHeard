@@ -108,33 +108,6 @@ public class MainActivity extends AppCompatActivity {
 
     // shared preferences member variables
     private static String sharedPrefFile = "com.example.android.makemyvoiceheardprefs";
-    private final static String DATA_STORED_KEY       = "DATA_STORED";
-
-    private final static String SENATOR_1_NAME_KEY       = "SENATOR_1_NAME";
-    private final static String SENATOR_1_LINE1_KEY      = "SENATOR_1_LINE1";
-    private final static String SENATOR_1_LINE2_KEY      = "SENATOR_1_LINE2";
-    private final static String SENATOR_1_PHOTO_URL_KEY  = "SENATOR_1_PHOTO_URL";
-    private final static String SENATOR_1_URL_KEY        = "SENATOR_1_URL";
-    private final static String SENATOR_1_PARTY_KEY      = "SENATOR_1_PARTY";
-    private final static String SENATOR_1_PHONE_KEY      = "SENATOR_1_PHONE";
-
-    private final static String SENATOR_2_NAME_KEY       = "SENATOR_2_NAME";
-    private final static String SENATOR_2_LINE1_KEY      = "SENATOR_2_LINE1";
-    private final static String SENATOR_2_LINE2_KEY      = "SENATOR_2_LINE2";
-    private final static String SENATOR_2_PHOTO_URL_KEY  = "SENATOR_2_PHOTO_URL";
-    private final static String SENATOR_2_URL_KEY        = "SENATOR_2_URL";
-    private final static String SENATOR_2_PARTY_KEY      = "SENATOR_2_PARTY";
-    private final static String SENATOR_2_PHONE_KEY      = "SENATOR_2_PHONE";
-
-    private final static String REPRESENTATIVE_NAME_KEY       = "REPRESENTATIVE_NAME";
-    private final static String REPRESENTATIVE_LINE1_KEY      = "REPRESENTATIVE_LINE1";
-    private final static String REPRESENTATIVE_LINE2_KEY      = "REPRESENTATIVE_LINE2";
-    private final static String REPRESENTATIVE_PHOTO_URL_KEY  = "REPRESENTATIVE_PHOTO_URL";
-    private final static String REPRESENTATIVE_URL_KEY        = "REPRESENTATIVE_URL";
-    private final static String REPRESENTATIVE_PARTY_KEY      = "REPRESENTATIVE_PARTY";
-    private final static String REPRESENTATIVE_PHONE_KEY      = "REPRESENTATIVE_PHONE";
-
-        // this is a test comment
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -146,7 +119,6 @@ public class MainActivity extends AppCompatActivity {
         final int REQUEST_CODE_PERMISSION = 2;
         String encodeAddress;
         String encodedAddress = "";
-        Log.d("WWD", "in main activity onCreate");
         setSupportActionBar((Toolbar) findViewById(R.id.my_toolbar));
         mViewModel = ViewModelProviders.of(MainActivity.this).get(OfficialsViewModel.class);
         senator1NameTV         = (TextView) findViewById(R.id.senator_1_name);
@@ -158,7 +130,6 @@ public class MainActivity extends AppCompatActivity {
         senator1ImageIV        = (ImageView) findViewById(R.id.senator_1_label);
         senator2ImageIV        = (ImageView) findViewById(R.id.senator_2_label);
         representativeImageIV  = (ImageView) findViewById(R.id.representative_image);
-        Log.d("WWD", "in main activity onCreate call showLoadingMessage");
         showLoadingMessage();
         mViewModel.getAllMovies().observe(MainActivity.this, new Observer<List<Officials>>() {
                     @Override
@@ -189,8 +160,6 @@ public class MainActivity extends AppCompatActivity {
                         representativeAddressLine2 = officialsList.get(0).getRepresentativeAddressLine2();
                         representativeParty = officialsList.get(0).getRepresentativeParty();
                         representativePhone = officialsList.get(0).getRepresentativePhone();
-
-                        Log.d("WWD", " ------------------ senator1Name length is " + senator1Name.length());
                     }
                 });
 
@@ -203,7 +172,6 @@ public class MainActivity extends AppCompatActivity {
             if ((ContextCompat.checkSelfPermission(this, mPermission)
                     != PackageManager.PERMISSION_GRANTED) ||  (ContextCompat.checkSelfPermission(this, mCallPermission)
                     != PackageManager.PERMISSION_GRANTED)) {
-                Log.d("WWD", "requesting permission");
                 requestPermissions(new String[]{mPermission,mCallPermission}, REQUEST_CODE_PERMISSION);
 
                 // If any permission above not allowed by user, this condition will execute every time, else your else part will work
@@ -215,28 +183,16 @@ public class MainActivity extends AppCompatActivity {
 
         // check if GPS enabled
         if(gps.canGetLocation()){
-            Log.d("WWD", "canGetLocation returned true");
             double latitude = gps.getLatitude();
             double longitude = gps.getLongitude();
-            Log.d("WWD", " ---------- latitude is " + latitude);
-            Log.d("WWD", " ---------- longitude is " + longitude);
-            // \n is for new line
-            /* Toast.makeText(getApplicationContext(), "Your Location is - \nLat: "
-                    + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show(); */
             Geocoder geocoder= new Geocoder(getApplicationContext(), Locale.getDefault());
             try {
                 List<Address> listAddress = geocoder.getFromLocation(latitude, longitude, 1);
                 if (listAddress != null && listAddress.size() > 0) {
                     String address = "";
                     address += listAddress.get(0).getAddressLine(0);
-                    Log.d("WWD", " -------------  address line is " + address);
                     encodeAddress = URLEncoder.encode(address, "UTF-8");
-                    Log.d("WWD", "-------------- the the encoded address is " + encodeAddress);
                     encodedAddress = encodeAddress.replace("+", "%20");
-                    Log.d("WWD", " -------------- the encoded address afer replacment is " + encodedAddress);
-
-                   // URL url = new URL(address);
-                    //Log.d("WWD", "-------------- first url is " + url.toString());
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -248,11 +204,6 @@ public class MainActivity extends AppCompatActivity {
             gps.showSettingsAlert();
         }
         new CivicQueryTask().execute(encodedAddress);
-        /* try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } */
 
     }
 
@@ -265,7 +216,6 @@ public class MainActivity extends AppCompatActivity {
         remoteViews.setTextViewText(R.id.widget_senator2, senator2Name);
         remoteViews.setTextViewText(R.id.widget_representative, representativeName);
         appWidgetManager.updateAppWidget(thisWidget,remoteViews);
-
     }
 
     public void onClickSenator1(View view) {
@@ -312,7 +262,6 @@ public class MainActivity extends AppCompatActivity {
                 senator2AddressLine2, senator2Party, senator2Phone,
                 representativeName, representativeURL, representativePhotoURL, representativeAddressLine1,
                 representativeAddressLine2, representativeParty, representativePhone);
-        Log.d("WWD", "in storeOfficialsInDatabase");
         mViewModel.insert(officials);
     }
 
@@ -355,12 +304,7 @@ public class MainActivity extends AppCompatActivity {
         turnOnMainViews();
     }
 
-    static public String returnSenator1Name() {
-        return "Ted cruz";
-    }
-
     public void initializeUI() {
-        Log.d("WWD", "in initializeUI");
         senator1NameTV.setText(senator1Name);
         senator2NameTV.setText(senator2Name);
         representativeNameTV.setText(representativeName);
@@ -395,18 +339,14 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            //mLoadingIndicator.setVisibility(View.VISIBLE);
         }
 
         @Override
         protected String doInBackground(String... params) {
             String address = params[0];
             String civicResults = null;
-          //  Log.d("WWD", "in doInBackground");
             try {
-            //    Log.d("WWD", "call network utils");
                 civicResults = NetworkUtils.getResponseFromHttpUrl(address);
-                //Log.d("WWD", "civicResults):" + civicResults);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -415,7 +355,6 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String civicSearchResults) {
-            Log.d("WWD", "in onPostExecute");
             if (NetworkUtils.getNetworkConnected() && (civicSearchResults != null && !civicSearchResults.equals(""))) {
                 // ---------------------------------------------------------------------
                 // first set the names to the text views
@@ -423,7 +362,6 @@ public class MainActivity extends AppCompatActivity {
                 JsonUtil.parseCivicsJson(civicSearchResults);
 
                 senator1Name         = JsonUtil.getSenator1Name();
-                Log.d("WWD", "in onPostExecute read senator 1 name" + senator1Name);
                 senator1URL          = JsonUtil.getSenator1URL();
                 senator1PhotoURL     = JsonUtil.getSenator1PhotoURL();
                 senator1AddressLine1 = JsonUtil.getSenator1AddressLine1();
@@ -474,9 +412,6 @@ public class MainActivity extends AppCompatActivity {
                 }
                 turnOffLoadingErrorMessage();
 
-                //initializeUI();
-                // store data for future use in case of network failure
-                //storePreferences();
                 storeOfficialsInDatabase();
                 updateAppWidget();
             } else {
@@ -519,8 +454,6 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 });
-                Log.d("WWD", "read data from database");
-                //showErrorMessage();
             }
         }
     }

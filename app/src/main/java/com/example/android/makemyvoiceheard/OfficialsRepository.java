@@ -39,7 +39,6 @@ public class OfficialsRepository {
 
         @Override
         protected Void doInBackground(final Officials... params) {
-            Log.d("WWD", "in OfficialsRepository doInBackground");
             mAsyncTaskDao.nukeTable();
             mAsyncTaskDao.insertOfficials(params[0]);
             return null;

@@ -45,7 +45,6 @@ public class DetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //  Log.d("WWD", "in Detail Activity onCreate");
         setContentView(R.layout.activity_detail);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setSupportActionBar((Toolbar) findViewById(R.id.my_detail_toolbar));
@@ -61,13 +60,6 @@ public class DetailActivity extends AppCompatActivity {
         mOfficialURL   = intent.getStringExtra(MainActivity.OFFICIAL_URL);
         mOfficialImage = intent.getStringExtra(MainActivity.OFFICIAL_PHOTO_URL);
         mPhoneNumber   = intent.getStringExtra(MainActivity.OFFICIAL_PHONE);
-
-        Log.d("WWD", "mOfficialLabel is  " + mOfficialLabel);
-        Log.d("WWD", "mOfficialName is " + mOfficialName);
-        Log.d("WWD", "mAddressLine1 is " + mAddressLine1);
-        Log.d("WWD", "mAddressLine2 is " + mAddressLine2);
-        Log.d("WWD", "mWebsite is " + mOfficialURL);
-        Log.d("WWD", "mOfficialImage is " + mOfficialImage);
 
         mOfficialLabelTV = (TextView) findViewById(R.id.official_label);
         mOfficialNameTV  = (TextView) findViewById(R.id.official_name);
@@ -92,25 +84,14 @@ public class DetailActivity extends AppCompatActivity {
             Picasso.get().load(mOfficialImage).into(mOfficialImageIV);
         }
 
-
     }
 
     public void placeCall(View view) {
         Intent callIntent = new Intent(Intent.ACTION_CALL);
-        Log.d("WWD", "phone number is " + mPhoneNumber);
         callIntent.setData(Uri.parse("tel:" + mPhoneNumber));
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            Log.d("WWD", " *************** permission for call denied aborting call");
             return;
         }
-        Log.d("WWD", " ---------------------- placing call");
         startActivity(callIntent);
     }
 }

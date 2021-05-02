@@ -34,57 +34,30 @@ public class NetworkUtils {
      */
     public static String getResponseFromHttpUrl(String address) throws IOException {
         downloadDataSuccess = false;
-        Log.d("WWD", " ---------------- getResponseFromHttpUrl address is " + address);
         //String urlString = CIVICS_URL + CIVICS_URL_PART2;
         String urlString = API_BASE_STRING + address + API_PARAMETERS_STRING;
-        //String urlString = HTTP_STRING;
-        //urlString += ACCEPT;
-        Log.d("WWD", "the urlstring is " + urlString);
-        Log.d("WWD", " the original HTTP_STRING is " + HTTP_STRING);
-
         Uri builtUri = Uri.parse(urlString).buildUpon()
                 .build();
-
-        Log.d("WWD", "built uri " + builtUri.toString());
 
         URL url = null;
         try {
             url = new URL(builtUri.toString());
         } catch (MalformedURLException e) {
-            Log.d("WWD", "url build failed");
             e.printStackTrace();
         }
-        Log.d("WWD", "built url " + url.toString());
 
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
         urlConnection.setRequestMethod("GET");
 
-        Log.d("WWD", "in getResponseFromHttpUrl url is " + url);
         try {
-            Log.d("WWD", "lets try urlConnection.getInputStream");
             InputStream in = urlConnection.getInputStream();
-            Log.d("WWD", "after getInputStream");
             if (in == null) {
                 networkConnected = false;
-                Log.d("WWD", "network connection failed");
             }
             else {
                 networkConnected = true;
-                Log.d("WWD", "network connection worked");
             }
 
-          /*   Scanner scanner = new Scanner(in);
-            scanner.useDelimiter("\\A");
-
-            boolean hasInput = scanner.hasNext();
-            Log.d("WWD", "hasInput is " + hasInput);
-            if (hasInput) {
-                Log.d("WWD", "read data from Civics API");
-                return scanner.next();
-            } else {
-                Log.d("WWD", "no data read from Civics API ");
-                return null;
-            } */
             StringBuilder sb = new StringBuilder();
             BufferedReader reader = null;
             reader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
@@ -93,7 +66,6 @@ public class NetworkUtils {
 
             while ((line = reader.readLine()) != null) {
                 sb.append(line + "\n");
-                Log.d("WWD", "read " + line);
             }
             return sb.toString();
         } finally {

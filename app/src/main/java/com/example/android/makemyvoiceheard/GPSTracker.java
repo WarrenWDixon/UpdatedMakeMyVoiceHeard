@@ -44,61 +44,40 @@ public class GPSTracker extends Service implements LocationListener {
     protected LocationManager locationManager;
 
     public GPSTracker(Context context) {
-        Log.d("WWD", "in GPSTracker constructor");
         this.mContext = context;
         getLocation();
     }
 
     public Location getLocation() {
         try {
-            Log.d("WWD", "in getLocation");
             locationManager = (LocationManager) mContext.getSystemService(LOCATION_SERVICE);
 
             // getting GPS status
             isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-            Log.d("WWD", "isGPSEnabled is " + isGPSEnabled);
 
             // getting network status
             isNetworkEnabled = locationManager
                     .isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-            Log.d("WWD", "isNetworkEnabled is" + isNetworkEnabled);
 
             if (!isGPSEnabled && !isNetworkEnabled) {
                 // no network provider is enabled
                 Log.d("WWD", "no gps or network bummer!");
             } else {
-                Log.d("WWD", "in else branch");
                 this.canGetLocation = true;
-                Log.d("WWD", "in else branch after set flag");
                 // First get location from Network Provider
                 if (isNetworkEnabled) {
-                    Log.d("WWD", "network is enabled");
-                   /* if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ) {
-                        // TODO: Consider calling
-                        //    ActivityCompat#requestPermissions
-                        // here to request the missing permissions, and then overriding
-                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                        //                                          int[] grantResults)
-                        // to handle the case where the user grants the permission. See the documentation
-                        // for ActivityCompat#requestPermissions for more details.
-                        return null;
-                    } */
+
                     locationManager.requestLocationUpdates(
                             LocationManager.NETWORK_PROVIDER,
                             MIN_TIME_BW_UPDATES,
                             MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
 
-                    Log.d("WWD", "Network");
                     if (locationManager != null) {
                         location = locationManager
                                 .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-                        Log.d("WWD", "got location");
                         if (location != null) {
-                            Log.d("WWD", "location is not null");
                             latitude = location.getLatitude();
                             longitude = location.getLongitude();
-                            Log.d("WWD", "network latitude is " + latitude);
-                            Log.d("WWD", "network longitude is " + longitude);
                         }
                         else {
                             Log.d("WWD", "location from network location is null");
@@ -110,25 +89,19 @@ public class GPSTracker extends Service implements LocationListener {
 
                 // if GPS Enabled get lat/long using GPS Services
                 if (isGPSEnabled) {
-                    Log.d("WWD", "GPS is enabled");
                     if (location == null) {
-                        Log.d("WWD", "location is null");
                         locationManager.requestLocationUpdates(
                                 LocationManager.GPS_PROVIDER,
                                 MIN_TIME_BW_UPDATES,
                                 MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
 
-                        Log.d("WWD", "GPS Enabled");
                         if (locationManager != null) {
-                            Log.d("WWD", "locationManager not null get location from GPS");
                             location = locationManager
                                     .getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
                             if (location != null) {
                                 latitude = location.getLatitude();
                                 longitude = location.getLongitude();
-                                Log.d("WWD", "gps latitude is " + latitude);
-                                Log.d("WWD", "gps longitude is " + longitude);
                             }
                         }
                     }

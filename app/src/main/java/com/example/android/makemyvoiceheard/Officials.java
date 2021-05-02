@@ -5,30 +5,6 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
-/* private String senator1Name;
-private String senator1URL;
-private String senator1PhotoURL;
-private String senator1AddressLine1;
-private String senator1AddressLine2;
-private String senator1Party;
-private String senator1Phone;
-
-private String senator2Name;
-private String senator2URL;
-private String senator2PhotoURL;
-private String senator2AddressLine1;
-private String senator2AddressLine2;
-private String senator2Party;
-private String senator2Phone;
-
-private String representativeName;
-private String representativeURL;
-private String representativePhotoURL;
-private String representativeAddressLine1;
-private String representativeAddressLine2;
-private String representativeParty;
-private String representativePhone; */
-
 @Entity(tableName="officials")
 public class Officials {
     @PrimaryKey(autoGenerate = true)
